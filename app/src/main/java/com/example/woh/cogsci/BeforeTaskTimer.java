@@ -1,6 +1,7 @@
 package com.example.woh.cogsci;
 
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.widget.TextView;
 
 /**
@@ -12,14 +13,15 @@ public class BeforeTaskTimer extends CountDownTimer {
     private TextView countDownLabel;
 
     public BeforeTaskTimer(int seconds, MainActivity mainActivity) {
-        super(seconds*1000,1000);
+        super(seconds*1000,500);
         this.mainActivity = mainActivity;
     }
 
     @Override
     public void onTick(long millisUntilFinished) {
         countDownLabel = (TextView) mainActivity.findViewById(R.id.countDownLabel);
-        countDownLabel.setText(((int)(millisUntilFinished / 1000)+1) + "...");
+        countDownLabel.setText(((millisUntilFinished/1000)+1) + "...");
+
     }
 
     @Override
