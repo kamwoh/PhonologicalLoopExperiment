@@ -22,6 +22,11 @@ public class ExperimentTask {
     private int taskNo = 1;
     private int taskDuration = 0;
     private Context mcontext;
+    protected ArrayList<String> task1 = new ArrayList<>();
+    protected ArrayList<String> task2 = new ArrayList<>();
+    protected ArrayList<String> task1_a = new ArrayList<>();
+    protected ArrayList<String> task2_a = new ArrayList<>();
+    private Random r = new Random();
 
     public ExperimentTask(int id,Context context) {
         experimentID = id;
@@ -52,16 +57,13 @@ public class ExperimentTask {
     }
 
     public ArrayList<String> getUserInputList() {
-        ArrayList<String> dummy = new ArrayList<>();
-        dummy.add("Word 1");
-        dummy.add("Word 2");
-        dummy.add("Word 3");
-        dummy.add("Word 4");
-        return dummy;
+        if(taskNo==1) return task1_a;
+        else return task2_a;
     }
 
     public void saveUserInput(String userInput) {
-
+        if(taskNo==1) task1_a.add(userInput);
+        else task2_a.add(userInput);
     }
 
     public void nextTask() {
@@ -71,11 +73,6 @@ public class ExperimentTask {
     public int getTaskNo() {
         return taskNo;
     }
-
-
-    protected ArrayList<String> task1 = new ArrayList<>();
-    protected ArrayList<String> task2 = new ArrayList<>();
-    private Random r = new Random();
 
     public void loadFile(int experiment){
         String file = "wordsE"+experiment+".txt";
