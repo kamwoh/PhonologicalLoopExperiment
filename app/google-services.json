@@ -1,10 +1,55 @@
 {
   "project_info": {
-    "project_number": "838397664067",
-    "firebase_url": "https://phonologicalloopexperiment.firebaseio.com",
-    "project_id": "phonologicalloopexperiment",
-    "storage_bucket": "phonologicalloopexperiment.appspot.com"
+    "project_number": "1008879286687",
+    "firebase_url": "https://cogsci-d08f4.firebaseio.com",
+    "project_id": "cogsci-d08f4",
+    "storage_bucket": "cogsci-d08f4.appspot.com"
   },
-  "client": [],
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1008879286687:android:4eff457ee05cdb38",
+        "android_client_info": {
+          "package_name": "com.example.woh.cogsci"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1008879286687-pu2853bdbkeqof4468d8hpqli4kq3q25.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.woh.cogsci",
+            "certificate_hash": "ffc4958dca25946e71bd89a50e8f4259ba8aaccd"
+          }
+        },
+        {
+          "client_id": "1008879286687-ffr90ohvc92c34i1thbpdjgra52bo1ua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC22rNGN5WRj9w0zZFGXMKHTrCXTtR8mN8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1008879286687-ffr90ohvc92c34i1thbpdjgra52bo1ua.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
   "configuration_version": "1"
 }

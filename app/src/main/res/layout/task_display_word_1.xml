@@ -16,9 +16,11 @@
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
 
         <ListView
+            android:id="@+id/taskWordListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
