@@ -1,5 +1,6 @@
 package com.example.woh.cogsci;
 
+import android.content.Context;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -38,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
     public final Handler handler = new Handler();
     private int experimentID;
-    private int taskDuration = 15;
     private ExperimentTask experimentTask;
+    private Context context;
 
     private View.OnClickListener taskButtonOnClickListener = new View.OnClickListener() {
         @Override
@@ -55,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
                     experimentID = 3;
                     break;
             }
-            experimentTask = new ExperimentTask(experimentID);
+            experimentTask = new ExperimentTask(experimentID,context);
+//            experimentTask.setContext(context);
             MainActivity.this.setupBeforeTaskShowExperiment();
         }
     };
@@ -78,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_1);
+        context = this;
         CountDownTimer countDownTimer = new CountDownTimer(2*1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {}
@@ -142,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         ListView taskWordListView = (ListView) findViewById(R.id.taskWordListView);
         taskWordListView.setAdapter(wordListAdapter);
 
-        TaskTimer taskTimer = new TaskTimer(taskDuration, this);
+        TaskTimer taskTimer = new TaskTimer(experimentTask.getTaskDuration(), this);
         taskTimer.start();
     }
 
@@ -179,7 +182,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void setupAfterTaskShowResult() {
         setContentView(R.layout.after_task_show_result_1);
-
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = firebaseDatabase.getReference("message");
+        myRef.setValue("Hello World");
     }
 
 }

@@ -6,8 +6,12 @@ package com.example.woh.cogsci;
 
 public class Result {
 
+    private int experimentNumber;
     private int correct;
-    private int total;
+    private int timeTakenToSubmit;
 
+    public void pushToDatabase() {
+
+    }
 
 }

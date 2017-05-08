@@ -1,9 +1,14 @@
 package com.example.woh.cogsci;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -16,9 +21,11 @@ public class ExperimentTask {
     private int experimentID = 1;
     private int taskNo = 1;
     private int taskDuration = 0;
+    private Context mcontext;
 
-    public ExperimentTask(int id) {
+    public ExperimentTask(int id,Context context) {
         experimentID = id;
+        mcontext = context;
         taskNo = 1;
         run();
     }
@@ -31,7 +38,7 @@ public class ExperimentTask {
         loadFile(experimentID);
     }
 
-    public int taskDuration() {
+    public int getTaskDuration() {
         return taskDuration;
     }
 
@@ -66,8 +73,8 @@ public class ExperimentTask {
     }
 
 
-    protected static ArrayList<String> task1 = new ArrayList<>();
-    protected static ArrayList<String> task2 = new ArrayList<>();
+    protected ArrayList<String> task1 = new ArrayList<>();
+    protected ArrayList<String> task2 = new ArrayList<>();
     private Random r = new Random();
 
     public void loadFile(int experiment){
@@ -77,8 +84,10 @@ public class ExperimentTask {
     }
 
     private void loadList(String file){
+        AssetManager am = mcontext.getAssets();
         try{
-            BufferedReader br = new BufferedReader(new FileReader(file));
+            InputStream path = am.open(file);
+            BufferedReader br = new BufferedReader(new InputStreamReader(path));
             String line = br.readLine();
             int toRead = r.nextInt(Integer.parseInt(line))+1;
 
@@ -94,8 +103,10 @@ public class ExperimentTask {
 				ABORT MISSION
 				NO WORD LIST FOUND
 			*/
+            Log.e("GG",e.toString());
         }catch(IOException e){
             // ERROR ???
+            Log.e("GG.com",e.toString());
         }
     }
 }
