@@ -10,6 +10,7 @@ public class ExperimentTask {
 
     private int experimentID;
     private int taskNo;
+    private int taskDuration;
 
     public ExperimentTask(int id) {
         experimentID = id;
@@ -37,18 +38,20 @@ public class ExperimentTask {
 
     //load respective text
     private void experimentOne() {
-
+        taskDuration = 5;
     }
 
     private void experimentTwo() {
-
+        taskDuration = 10;
     }
 
     private void experimentThree() {
-
+        taskDuration = 15;
     }
 
-
+    public int taskDuration() {
+        return taskDuration;
+    }
 
     public ArrayList<String> getWordList() {
         ArrayList<String> dummy = new ArrayList<>();
@@ -56,7 +59,7 @@ public class ExperimentTask {
         dummy.add("Word 2");
         dummy.add("Word 3");
         dummy.add("Word 4");
-        return new ArrayList<>();
+        return dummy;
     }
 
     public void getResult() {
@@ -69,7 +72,7 @@ public class ExperimentTask {
         dummy.add("Word 2");
         dummy.add("Word 3");
         dummy.add("Word 4");
-        return new ArrayList<>();
+        return dummy;
     }
 
     public void saveUserInput(String userInput) {

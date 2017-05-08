@@ -138,8 +138,7 @@ public class MainActivity extends AppCompatActivity {
         TextView taskLabel = (TextView) findViewById(R.id.taskLabel);
         taskLabel.setText("Task "+experimentTask.getTaskNo());
 
-        ArrayList<String> wordList = experimentTask.getWordList();
-        ArrayAdapter<String> wordListAdapter = new ArrayAdapter<>(this, R.layout.task_display_word_1, wordList);
+        ArrayAdapter<String> wordListAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, experimentTask.getWordList());
         ListView taskWordListView = (ListView) findViewById(R.id.taskWordListView);
         taskWordListView.setAdapter(wordListAdapter);
 
@@ -153,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         Button taskDoneButton = (Button) findViewById(R.id.taskDoneButton);
         Button taskAddItemButton = (Button) findViewById(R.id.taskAddItemButton);
         final ListView itemList = (ListView) findViewById(R.id.itemList);
-        final ArrayAdapter<String> itemListAdapter = new ArrayAdapter<>(this, R.layout.task_prompt_input_2, experimentTask.getUserInputList());
+        final ArrayAdapter<String> itemListAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, experimentTask.getUserInputList());
         itemList.setAdapter(itemListAdapter);
 
         taskDoneButton.setOnClickListener(new View.OnClickListener() {
