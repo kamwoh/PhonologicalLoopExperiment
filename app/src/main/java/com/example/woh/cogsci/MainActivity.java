@@ -189,7 +189,6 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog ad = popUp.create();
                 ad.setTitle("Enter the word: ");
                 ad.show();
-                //experimentTask.saveUserInput("User input from prompt input");
                 itemListAdapter.notifyDataSetChanged();
             }
         });
@@ -200,6 +199,8 @@ public class MainActivity extends AppCompatActivity {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = firebaseDatabase.getReference("message");
         myRef.setValue("Hello World");
+        ArrayAdapter<String> givenWord = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, experimentTask.getWordList());
+        ArrayAdapter<String> userInput = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, experimentTask.getUserInputList());
     }
 
 }
