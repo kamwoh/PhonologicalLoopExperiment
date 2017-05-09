@@ -16,13 +16,19 @@ public class Result {
 
 
     public void pushToDatabase() {
-        DatabaseReference newResult = userDatabase.child("result").child(experimentTask.getExperimentID()).push();
-        DatabaseReference task1 = newResult.child("task 1");
-        DatabaseReference task2 = newResult.child("task 2");
-        task1.child("correct").setValue(correct[0]);
-        task1.child("time_taken").setValue(timeTakenToSubmit[0]);
-        task2.child("correct").setValue(correct[1]);
-        task2.child("time_taken").setValue(timeTakenToSubmit[1]);
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                DatabaseReference newResult = userDatabase.child("result").child(experimentTask.getExperimentID()).push();
+                DatabaseReference task1 = newResult.child("task 1");
+                DatabaseReference task2 = newResult.child("task 2");
+                task1.child("correct").setValue(correct[0]);
+                task1.child("time_taken").setValue(timeTakenToSubmit[0]);
+                task2.child("correct").setValue(correct[1]);
+                task2.child("time_taken").setValue(timeTakenToSubmit[1]);
+            }
+        });
+        thread.start();
     }
 
     public Result(DatabaseReference userDatabase, ExperimentTask experimentTask) {

@@ -82,10 +82,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_1);
-        firebaseDatabase = FirebaseDatabase.getInstance();
         User.setAndroidID(Secure.getString(this.getContentResolver(), Secure.ANDROID_ID));
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
         userDatabase = firebaseDatabase.getReference().child(User.getAndroidID());
-        User.pushToDatabase(userDatabase);
+
+        if(User.userExist())
+            User.pushToDatabase(userDatabase);
+
         CountDownTimer countDownTimer = new CountDownTimer(2 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {

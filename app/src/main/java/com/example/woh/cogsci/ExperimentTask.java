@@ -73,8 +73,12 @@ public class ExperimentTask {
 
     private void calculateResult() {
         for(int i=0;i<totalWord;i++){
-            if(task1.get(i).toLowerCase().equals(task1_a.get(i).toLowerCase())) correct1++;
-            if(task2.get(i).toLowerCase().equals(task2_a.get(i).toLowerCase())) correct2++;
+            try {
+                if (task1.get(i).toLowerCase().equals(task1_a.get(i).toLowerCase())) correct1++;
+            } catch(Exception e) {}
+            try {
+                if (task2.get(i).toLowerCase().equals(task2_a.get(i).toLowerCase())) correct2++;
+            } catch(Exception e) {}
         }
     }
 

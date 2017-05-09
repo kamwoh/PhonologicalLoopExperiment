@@ -10,15 +10,25 @@ public class User {
 
     private static String androidID;
 
-    public static void pushToDatabase(DatabaseReference userDatabase) {
-        userDatabase.child("age").setValue(getAge());
-        userDatabase.child("gender").setValue(getGender());
+    public static void pushToDatabase(final DatabaseReference userDatabase) {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                userDatabase.child("age").setValue(getAge());
+                userDatabase.child("gender").setValue(getGender());
+            }
+        });
+        thread.start();
+    }
+
+    public static boolean userExist() {
+        return false;
     }
 
     public static void setAndroidID(String androidID) {
         User.androidID = androidID;
     }
-    
+
     public static String getAndroidID() {
         return androidID;
     }
