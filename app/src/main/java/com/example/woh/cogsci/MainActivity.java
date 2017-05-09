@@ -179,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
         TextView taskLabel = (TextView) findViewById(R.id.taskLabel);
         taskLabel.setText("Task " + experimentTask.getTaskNo());
 
-        ArrayAdapter<String> wordListAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, experimentTask.getWordList());
+        ArrayAdapter<String> wordListAdapter = new ArrayAdapter<>(this, R.layout.text_style1, experimentTask.getWordList());
         ListView taskWordListView = (ListView) findViewById(R.id.taskWordListView);
         taskWordListView.setAdapter(wordListAdapter);
 
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
         Button taskDoneButton = (Button) findViewById(R.id.taskDoneButton);
         Button taskAddItemButton = (Button) findViewById(R.id.taskAddItemButton);
         final ListView itemList = (ListView) findViewById(R.id.itemList);
-        final ArrayAdapter<String> itemListAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, experimentTask.getUserInputList());
+        final ArrayAdapter<String> itemListAdapter = new ArrayAdapter<>(this, R.layout.text_style1, experimentTask.getUserInputList());
         itemList.setAdapter(itemListAdapter);
 
         final long startTime = System.currentTimeMillis();
@@ -204,12 +204,20 @@ public class MainActivity extends AppCompatActivity {
         taskDoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+<<<<<<< HEAD
+                setupAfterTaskShowResult();
+=======
                 experimentTask.setTimeTaken((System.currentTimeMillis() - startTime) / 1000);
+>>>>>>> d7b61f4412ba025316e1c173f8064139796a4c2b
                 if (experimentTask.getTaskNo() == 1) {
                     experimentTask.nextTask();
+<<<<<<< HEAD
+                    setupBeforeTaskReady(); //task 2
+=======
                     setupBeforeTaskInstruction(); //task 2
                 } else {
                     setupAfterTaskShowResult();
+>>>>>>> d7b61f4412ba025316e1c173f8064139796a4c2b
                 }
             }
         });
@@ -263,8 +271,33 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.after_task_show_result_1);
         Result result = experimentTask.getResult();
         result.pushToDatabase();
-        ArrayAdapter<String> givenWord = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, experimentTask.getWordList());
-        ArrayAdapter<String> userInput = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, experimentTask.getUserInputList());
+
+        //Things in the result layout
+        ListView resultGivenWords = (ListView) findViewById(R.id.result_givenWords);
+        ListView resultAnswer = (ListView) findViewById(R.id.result_answer);
+        Button resultNextButton = (Button) findViewById(R.id.result_next);
+        TextView resultTask = (TextView) findViewById(R.id.result_textView6);
+
+        //Results gathered from the tasks
+        ArrayAdapter<String> givenWord = new ArrayAdapter<>(this, R.layout.text_style1, experimentTask.getWordList());
+        ArrayAdapter<String> userInput = new ArrayAdapter<>(this, R.layout.text_style1, experimentTask.getUserInputList());
+
+        for(int i=0;i<experimentTask.getWordList().size();i++){
+//            resultGivenWords.
+        }
+
+        resultTask.setText("Task "+experimentTask.getTaskNo());
+        resultGivenWords.setAdapter(givenWord);
+        resultAnswer.setAdapter(userInput);
+
+        //On clicking "NEXT" button
+        resultNextButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                return;
+            }
+        });
+
     }
 
     /**
