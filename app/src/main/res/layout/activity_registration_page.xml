@@ -4,40 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffd8ad"
     tools:context="com.example.woh.cogsci.RegistrationPage">
 
     <EditText
         android:id="@+id/ageInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/buttonMale"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="108dp"
+        android:layout_marginBottom="73dp"
+        android:background="#fefac0"
         android:ems="10"
         android:hint="Age"
+        android:textColor="@color/blue"
         android:inputType="number" />
 
     <RadioButton
         android:id="@+id/buttonMale"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Male"
         android:layout_alignBaseline="@+id/buttonFemale"
         android:layout_alignBottom="@+id/buttonFemale"
         android:layout_alignLeft="@+id/ageInput"
         android:layout_alignStart="@+id/ageInput"
         android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp" />
+        android:layout_marginStart="16dp"
+        android:buttonTint="#fefac0"
+        android:textColor="@color/blue"
+        android:text="Male" />
 
     <RadioButton
         android:id="@+id/buttonFemale"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Female"
-        android:layout_marginBottom="92dp"
         android:layout_above="@+id/buttonNext"
+        android:layout_alignEnd="@+id/ageInput"
         android:layout_alignRight="@+id/ageInput"
-        android:layout_alignEnd="@+id/ageInput" />
+        android:layout_marginBottom="92dp"
+        android:buttonTint="#fefac0"
+        android:textColor="@color/blue"
+        android:text="Female" />
 
     <Button
         android:id="@+id/buttonNext"
@@ -46,6 +53,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="115dp"
+        android:background="#fefac0"
+        android:textColor="@color/blue"
         android:text="Next" />
 
     <Button
@@ -57,4 +66,15 @@
         android:layout_alignStart="@+id/buttonNext"
         android:layout_marginBottom="22dp"
         android:text="check" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:textColor="@color/blue"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="76dp"
+        android:text="TextView"
+        tools:text="Tell us a little bit about yourself" />
 </RelativeLayout>
