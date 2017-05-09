@@ -9,6 +9,8 @@ import com.google.firebase.database.DatabaseReference;
 public class User {
 
     private static String androidID;
+    private static int age;
+    private static String gender;
 
     public static void pushToDatabase(final DatabaseReference userDatabase) {
         Thread thread = new Thread(new Runnable() {
@@ -21,10 +23,6 @@ public class User {
         thread.start();
     }
 
-    public static boolean userExist() {
-        return false;
-    }
-
     public static void setAndroidID(String androidID) {
         User.androidID = androidID;
     }
@@ -34,11 +32,19 @@ public class User {
     }
 
     public static int getAge() {
-        return 10;
+        return age;
+    }
+
+    public static void setAge(int age) {
+        User.age = age;
+    }
+
+    public static void setGender(String gender) {
+        User.gender = gender;
     }
 
     public static String getGender() {
-        return "Male";
+        return gender;
     }
 
 }

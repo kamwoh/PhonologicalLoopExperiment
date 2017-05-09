@@ -17,22 +17,22 @@
         android:background="#fefac0"
         android:ems="10"
         android:hint="Age"
+        android:textColorHint="#CCCCCC"
         android:textColor="@color/blue"
+        android:padding="10sp"
         android:inputType="number" />
 
     <RadioButton
         android:id="@+id/buttonMale"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/buttonFemale"
-        android:layout_alignBottom="@+id/buttonFemale"
-        android:layout_alignLeft="@+id/ageInput"
-        android:layout_alignStart="@+id/ageInput"
         android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
         android:buttonTint="#fefac0"
         android:textColor="@color/blue"
-        android:text="Male" />
+        android:text="Male"
+        android:layout_alignBaseline="@+id/buttonFemale"
+        android:layout_alignBottom="@+id/buttonFemale"
+        android:layout_toStartOf="@+id/buttonNext" />
 
     <RadioButton
         android:id="@+id/buttonFemale"
@@ -57,16 +57,6 @@
         android:textColor="@color/blue"
         android:text="Next" />
 
-    <Button
-        android:id="@+id/buttonCheck"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/buttonNext"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/buttonNext"
-        android:layout_marginBottom="22dp"
-        android:text="check" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -76,5 +66,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="76dp"
         android:text="TextView"
+        android:textSize="20dp"
         tools:text="Tell us a little bit about yourself" />
 </RelativeLayout>

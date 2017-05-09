@@ -65,19 +65,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private View.OnClickListener startButtonOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            setContentView(R.layout.wait_experiment_3);
-            Button experimentButton1 = (Button) findViewById(R.id.experimentButton1);
-            Button experimentButton2 = (Button) findViewById(R.id.experimentButton2);
-            Button experimentButton3 = (Button) findViewById(R.id.experimentButton3);
-            experimentButton1.setOnClickListener(taskButtonOnClickListener);
-            experimentButton2.setOnClickListener(taskButtonOnClickListener);
-            experimentButton3.setOnClickListener(taskButtonOnClickListener);
-        }
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,66 +73,99 @@ public class MainActivity extends AppCompatActivity {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         userDatabase = firebaseDatabase.getReference().child(User.getAndroidID());
+        User.pushToDatabase(userDatabase);
 
-        if(User.userExist())
-            User.pushToDatabase(userDatabase);
-
-        CountDownTimer countDownTimer = new CountDownTimer(2 * 1000, 1000) {
+        new CountDownTimer(2 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
             }
 
             @Override
             public void onFinish() {
-                MainActivity.this.setContentView(R.layout.wait_start_2);
-                Button startButton = (Button) MainActivity.this.findViewById(R.id.startButton);
-                Button exitButton = (Button) MainActivity.this.findViewById(R.id.exitButton);
-                startButton.setOnClickListener(startButtonOnClickListener);
+                setupLanding();
             }
         }.start();
 
     }
 
+    /**
+     * 0
+     */
+    public void setupLanding() {
+        setContentView(R.layout.wait_start_2);
+        Button startButton = (Button) findViewById(R.id.startButton);
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setContentView(R.layout.wait_experiment_3);
+                Button experimentButton1 = (Button) findViewById(R.id.experimentButton1);
+                Button experimentButton2 = (Button) findViewById(R.id.experimentButton2);
+                Button experimentButton3 = (Button) findViewById(R.id.experimentButton3);
+                experimentButton1.setOnClickListener(taskButtonOnClickListener);
+                experimentButton2.setOnClickListener(taskButtonOnClickListener);
+                experimentButton3.setOnClickListener(taskButtonOnClickListener);
+            }
+        });
+
+        Button exitButton = (Button) MainActivity.this.findViewById(R.id.exitButton);
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.exit(0);
+            }
+        });
+    }
+
+    /**
+     * 1
+     */
     public void setupBeforeTaskShowExperiment() {
         setContentView(R.layout.before_task_show_experiment_1);
         TextView experimentName = (TextView) findViewById(R.id.experimentName);
         experimentName.setText(experimentTask.getExperimentName());
 
-        CountDownTimer countDownTimer = new CountDownTimer(2 * 1000, 1000) {
+        new CountDownTimer(2 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
             }
 
             @Override
             public void onFinish() {
-                MainActivity.this.setupBeforeTaskReady();
+                MainActivity.this.setupBeforeTaskInstruction();
             }
         }.start();
     }
 
-    public void setupBeforeTaskReady() {
-        setContentView(R.layout.before_task_ready_2);
+    /**
+     * 2
+     */
+    public void setupBeforeTaskInstruction() {
+        setContentView(R.layout.before_task_instruction_2);
         TextView beforeTaskLabel = (TextView) findViewById(R.id.beforeTaskLabel);
         beforeTaskLabel.setText("Task " + experimentTask.getTaskNo());
-
-        CountDownTimer countDownTimer = new CountDownTimer(2 * 1000, 1000) {
+        Button okButton = (Button) findViewById(R.id.instructionOKButton);
+        okButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTick(long millisUntilFinished) {
+            public void onClick(View v) {
+                setupBeforeTaskCountDown();
             }
-
-            @Override
-            public void onFinish() {
-                MainActivity.this.setupBeforeTaskCountDown();
-            }
-        }.start();
+        });
+        TextView instructionDetail = (TextView) findViewById(R.id.instructionDetail);
+        instructionDetail.setText(experimentTask.getInstruction());
     }
 
+    /**
+     * 3
+     */
     public void setupBeforeTaskCountDown() {
         setContentView(R.layout.before_task_count_down_3);
         BeforeTaskTimer beforeTaskTimer = new BeforeTaskTimer(3, this);
         beforeTaskTimer.start();
     }
 
+    /**
+     * 4
+     */
     public void setupTaskDisplayWord() {
         setContentView(R.layout.task_display_word_1);
         TextView taskLabel = (TextView) findViewById(R.id.taskLabel);
@@ -159,6 +179,9 @@ public class MainActivity extends AppCompatActivity {
         taskTimer.start();
     }
 
+    /**
+     * 5 -> 2 or 6
+     */
     public void setupTaskPromptInput() {
         setContentView(R.layout.task_prompt_input_2);
         //prompt input
@@ -173,10 +196,10 @@ public class MainActivity extends AppCompatActivity {
         taskDoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                experimentTask.setTimeTaken((System.currentTimeMillis() - startTime) / 1000);
                 if (experimentTask.getTaskNo() == 1) {
-                    experimentTask.setTimeTaken((System.currentTimeMillis()-startTime)/1000);
                     experimentTask.nextTask();
-                    setupBeforeTaskReady(); //task 2
+                    setupBeforeTaskInstruction(); //task 2
                 } else {
                     setupAfterTaskShowResult();
                 }
@@ -225,12 +248,31 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * 6
+     */
     public void setupAfterTaskShowResult() {
         setContentView(R.layout.after_task_show_result_1);
         Result result = experimentTask.getResult();
         result.pushToDatabase();
         ArrayAdapter<String> givenWord = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, experimentTask.getWordList());
         ArrayAdapter<String> userInput = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, experimentTask.getUserInputList());
+    }
+
+    /**
+     * 7 -> 0
+     */
+    public void setupShowFunFact() {
+        setContentView(R.layout.fun_fact_experiment_2_3);
+        TextView funFactDetail = (TextView) findViewById(R.id.funFactDetail);
+        funFactDetail.setText(experimentTask.getFunFact());
+        Button funFactOKButton = (Button) findViewById(R.id.funFactOKButton);
+        funFactOKButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setupLanding();
+            }
+        });
     }
 
     public DatabaseReference getUserDatabase() {
