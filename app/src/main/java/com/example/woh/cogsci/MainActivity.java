@@ -10,8 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.provider.Settings.Secure;
 
-import com.google.firebase.database.DatabaseReference;
+
+        import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.lang.reflect.Array;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private int experimentID;
     private ExperimentTask experimentTask;
     private Context context;
+    private String android_id;
 
     private View.OnClickListener taskButtonOnClickListener = new View.OnClickListener() {
         @Override
@@ -81,6 +84,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_1);
         context = this;
+        android_id = Secure.getString(this.getContentResolver(),Secure.ANDROID_ID);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference();
+        myRef.child("user_name").child("user_age").setValue("age");
+        myRef.child("user_name").child("user_gender").setValue("gender");
+        DatabaseReference newResult = myRef.child("user_name").child("result").child("experiment").push();
+        newResult.child("correct").setValue("1");
+        newResult.child("time_taken").setValue("1");
         CountDownTimer countDownTimer = new CountDownTimer(2*1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {}
@@ -92,10 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 startButton.setOnClickListener(startButtonOnClickListener);
             }
         }.start();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
 
-        myRef.setValue("Hello, World!");
     }
 
     public void setupBeforeTaskShowExperiment() {
