@@ -6,4 +6,5 @@
     android:textSize="20sp"
     android:paddingLeft="6dip"
     android:paddingRight="6dip"
+    android:textColor="@color/blue"
     android:gravity="center" />
