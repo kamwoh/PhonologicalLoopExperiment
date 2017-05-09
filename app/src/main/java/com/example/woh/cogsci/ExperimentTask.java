@@ -1,6 +1,5 @@
 package com.example.woh.cogsci;
 
-import android.content.Context;
 import android.content.res.AssetManager;
 import android.util.Log;
 
@@ -11,6 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.function.Consumer;
 
 /**
  * Created by woh on 07/05/17.
@@ -22,14 +22,16 @@ public class ExperimentTask {
     private int taskNo = 1;
     private int taskDuration = 0;
     private int totalWord = 6;
-    private Context mcontext;
+    private MainActivity mcontext;
     protected ArrayList<String> task1 = new ArrayList<>();
     protected ArrayList<String> task2 = new ArrayList<>();
     protected ArrayList<String> task1_a = new ArrayList<>();
     protected ArrayList<String> task2_a = new ArrayList<>();
+    private int correct1, correct2;
+    private long timeTaken1, timeTaken2;
     private Random r = new Random();
 
-    public ExperimentTask(int id,Context context) {
+    public ExperimentTask(int id,MainActivity context) {
         experimentID = id;
         mcontext = context;
         taskNo = 1;
@@ -69,12 +71,20 @@ public class ExperimentTask {
         else return task2_a.size() == totalWord;
     }
 
+    private void calculateResult() {
+        for(int i=0;i<totalWord;i++){
+            if(task1.get(i).toLowerCase().equals(task1_a.get(i).toLowerCase())) correct1++;
+            if(task2.get(i).toLowerCase().equals(task2_a.get(i).toLowerCase())) correct2++;
+        }
+    }
+
     public int getTotalWord() {
         return totalWord;
     }
 
-    public void getResult() {
-
+    public Result getResult() {
+        calculateResult();
+        return new Result(mcontext.getUserDatabase(), this);
     }
 
     public ArrayList<String> getUserInputList() {
@@ -132,4 +142,18 @@ public class ExperimentTask {
             Log.e("GG.com",e.toString());
         }
     }
+
+    public int[] getCorrect() {
+        return new int[]{correct1, correct2};
+    }
+
+    public long[] getTimeTaken() {
+        return new long[]{timeTaken1, timeTaken2};
+    }
+
+    public void setTimeTaken(long timeTaken) {
+        if(taskNo==1) timeTaken1 = timeTaken;
+        else timeTaken2 = timeTaken;
+    }
+
 }
