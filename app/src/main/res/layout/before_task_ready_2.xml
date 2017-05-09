@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/cream">
 
     <TextView
         android:id="@+id/beforeTaskLabel"
@@ -9,22 +10,47 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp"
-        android:text="Task 1" />
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:textColor="@color/blue"
+        android:text="Task 1"/>
 
     <TextView
         android:id="@+id/instructionLabel"
-        android:layout_width="wrap_content"
+        android:layout_width="275sp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/beforeTaskLabel"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="87dp"
-        android:text="Read these words as loud!!" />
+        android:layout_marginTop="70dp"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:textColor="@color/blue"
+        android:text="@string/instruction_label" />
 
     <TextView
-        android:id="@+id/readyLabel"
+        android:id="@+id/instructionDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/instructionLabel"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/instruction_detail"
+        android:textSize="16sp"
+        android:textColor="@color/blue"
+        android:layout_margin="30dp"
+        />
+
+    <Button
+        android:id="@+id/instructionOKButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="Ready?" />
+        android:layout_below="@+id/instructionDetail"
+        android:layout_marginTop="20dp"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:textColor="@color/cream"
+        android:text="OK"
+        android:background="@drawable/label_border"/>
 </RelativeLayout>

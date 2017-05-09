@@ -3,5 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+<<<<<<< HEAD
+=======
+    <color name="backgroundColor">#ffd8ad</color>
+    <color name="cream">#fefac0</color>
+>>>>>>> e32d6ee3d8ede211fd0b8017a9ef82980139a060
     <color name="blue">#004e63</color>
 </resources>

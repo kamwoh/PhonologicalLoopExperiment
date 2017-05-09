@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor">
 
     <RelativeLayout
         android:id="@+id/test"
         android:layout_width="match_parent"
-        android:layout_height="578dp">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/startLabel"
@@ -15,15 +16,54 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="136dp"
-            android:text="Click start to discover your potential!" />
+            android:textSize="20sp"
+            android:textColor="@color/blue"
+            android:textAlignment="center"
+            android:text="Hello! Welcome to\nBaddeley and Hitch (1974)\nPhonological Loop Experiment" />
+
+        <TextView
+            android:id="@+id/questionMark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Are you ready to test your working memory?"
+            android:layout_below="@+id/startLabel"
+            android:layout_marginTop="100dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="16sp"
+            android:textColor="@color/blue"
+            />
+
+        <TextView
+            android:id="@+id/centerTextAlign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/questionMark"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            />
 
         <Button
             android:id="@+id/startButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/startLabel"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="125dp"
-            android:text="Start" />
+            android:layout_toStartOf="@+id/centerTextAlign"
+            android:layout_below="@id/questionMark"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="30dp"
+            android:textSize="16sp"
+            android:textColor="@color/blue"
+            android:text="YAASS" />
+
+        <Button
+            android:id="@+id/exitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/blue"
+            android:layout_toEndOf="@+id/centerTextAlign"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/questionMark"
+            android:text="NOPE"/>
     </RelativeLayout>
 </LinearLayout>
