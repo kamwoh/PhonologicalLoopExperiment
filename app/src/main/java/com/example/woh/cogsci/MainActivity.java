@@ -114,6 +114,14 @@ public class MainActivity extends AppCompatActivity {
                 System.exit(0);
             }
         });
+
+        Button resultButton = (Button) MainActivity.this.findViewById(R.id.resultButton);
+        resultButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setupShowAllResult();
+            }
+        });
     }
 
     /**
@@ -273,6 +281,37 @@ public class MainActivity extends AppCompatActivity {
                 setupLanding();
             }
         });
+    }
+
+    /**
+     * 0.1 -> 0
+     */
+    public void setupShowAllResult() {
+        setContentView(R.layout.all_result);
+        Button okButton = (Button) findViewById(R.id.result_OKButton);
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setupLanding();
+            }
+        });
+
+        TextView e1t1, e1t2, e2t1, e2t2, e3t1, e3t2;
+        e1t1 = (TextView) findViewById(R.id.result_task1_e1_value);
+        e1t2 = (TextView) findViewById(R.id.result_task2_e1_value);
+        e2t1 = (TextView) findViewById(R.id.result_task1_e2_value);
+        e2t2 = (TextView) findViewById(R.id.result_task2_e2_value);
+        e3t1 = (TextView) findViewById(R.id.result_task1_e3_value);
+        e3t2 = (TextView) findViewById(R.id.result_task2_e3_value);
+
+        String[][] result = Result.getAllResult(this);
+        e1t1.setText(result[0][0]);
+        e1t2.setText(result[0][1]);
+        e2t1.setText(result[1][0]);
+        e2t2.setText(result[1][1]);
+        e3t1.setText(result[2][0]);
+        e3t2.setText(result[2][1]);
     }
 
     public DatabaseReference getUserDatabase() {

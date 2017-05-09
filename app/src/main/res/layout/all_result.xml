@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor">
+
+    <TextView
+        android:id="@+id/result_congratsTitle_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blue"
+        android:textSize="27sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:text="Congratulations!"/>
+
+    <TextView
+        android:id="@+id/result_congratsTitle_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/result_congratsTitle_1"
+        android:textColor="@color/blue"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:textAlignment="center"
+        android:text="You've completed all tasks.\nHere's your overall result:"/>
+
+    <TextView
+        android:id="@+id/result_experimentTitleLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/result_congratsTitle_2"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/blue"
+        android:textSize="18sp"
+        android:layout_marginStart="20dp"
+        android:text="Experiment"/>
+
+    <TextView
+        android:id="@+id/result_scoreTitleLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/result_congratsTitle_2"
+        android:layout_alignTop="@+id/result_experimentTitleLabel"
+        android:layout_toEndOf="@+id/result_phonologicalExperiment"
+        android:layout_marginStart="28dp"
+        android:textColor="@color/blue"
+        android:textSize="18sp"
+        android:text="Scores"/>
+
+    <TextView
+        android:id="@+id/result_phonologicalExperiment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/result_experimentTitleLabel"
+        android:layout_alignStart="@+id/result_experimentTitleLabel"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        android:text="Phonological Similarity\nEffect"/>
+
+    <TextView
+        android:id="@+id/result_wordLengthExperiment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/result_phonologicalExperiment"
+        android:layout_alignStart="@+id/result_experimentTitleLabel"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        android:text="Word Length Effect"/>
+
+    <TextView
+        android:id="@+id/result_articulacyExperiment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/result_wordLengthExperiment"
+        android:layout_alignStart="@+id/result_experimentTitleLabel"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        android:text="Articulacy suppression"/>
+
+    <TextView
+        android:id="@+id/result_task1_e1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/result_scoreTitleLabel"
+        android:layout_alignStart="@+id/result_scoreTitleLabel"
+        android:layout_alignTop="@+id/result_phonologicalExperiment"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        android:text="Task 1:"/>
+
+
+    <TextView
+        android:id="@+id/result_task1_e1_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/result_scoreTitleLabel"
+        android:layout_toEndOf="@+id/result_task1_e1"
+        android:layout_alignTop="@+id/result_phonologicalExperiment"
+        android:layout_marginStart="5dp"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        android:text="6/6"/>
+
+
+    <TextView
+        android:id="@+id/result_task2_e1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/result_scoreTitleLabel"
+        android:layout_toEndOf="@+id/result_task1_e1_value"
+        android:layout_alignTop="@+id/result_phonologicalExperiment"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        android:text="Task 2:"/>
+
+    <TextView
+        android:id="@+id/result_task2_e1_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/result_scoreTitleLabel"
+        android:layout_toEndOf="@+id/result_task2_e1"
+        android:layout_alignTop="@+id/result_phonologicalExperiment"
+        android:layout_marginStart="5dp"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        android:text="5/6"/>
+
+    <TextView
+        android:id="@+id/result_task1_e2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/result_phonologicalExperiment"
+        android:layout_alignStart="@+id/result_scoreTitleLabel"
+        android:layout_alignTop="@+id/result_wordLengthExperiment"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        android:text="Task 1"/>
+
+
+    <TextView
+        android:id="@+id/result_task1_e2_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/result_phonologicalExperiment"
+        android:layout_alignTop="@+id/result_wordLengthExperiment"
+        android:layout_alignStart="@+id/result_task1_e1_value"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        android:text="6/6"/>
+
+
+    <TextView
+        android:id="@+id/result_task2_e2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/result_phonologicalExperiment"
+        android:layout_alignTop="@+id/result_wordLengthExperiment"
+        android:layout_alignStart="@+id/result_task2_e1"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        android:text="Task 2"/>
+
+    <TextView
+        android:id="@+id/result_task2_e2_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/result_phonologicalExperiment"
+        android:layout_alignTop="@+id/result_wordLengthExperiment"
+        android:layout_alignStart="@+id/result_task2_e1_value"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        android:text="5/6"/>
+
+    <TextView
+        android:id="@+id/result_task1_e3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/result_wordLengthExperiment"
+        android:layout_alignStart="@+id/result_scoreTitleLabel"
+        android:layout_alignTop="@+id/result_articulacyExperiment"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        android:text="Task 1"/>
+
+
+    <TextView
+        android:id="@+id/result_task1_e3_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/result_wordLengthExperiment"
+        android:layout_alignTop="@+id/result_articulacyExperiment"
+        android:layout_alignStart="@+id/result_task1_e1_value"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        android:text="6/6"/>
+
+
+    <TextView
+        android:id="@+id/result_task2_e3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/result_wordLengthExperiment"
+        android:layout_alignTop="@+id/result_articulacyExperiment"
+        android:layout_toEndOf="@+id/result_task1_e1_value"
+        android:layout_alignStart="@+id/result_task2_e1"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        android:text="Task 2"/>
+
+    <TextView
+        android:id="@+id/result_task2_e3_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/result_wordLengthExperiment"
+        android:layout_alignTop="@+id/result_articulacyExperiment"
+        android:layout_alignStart="@+id/result_task2_e1_value"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        android:text="5/6"/>
+
+    <Button
+        android:id="@+id/result_OKButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/result_articulacyExperiment"
+        android:background="@drawable/button_border"
+        android:textColor="@color/blue"
+        android:textSize="18sp"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:text="OK"/>
+
+</RelativeLayout>

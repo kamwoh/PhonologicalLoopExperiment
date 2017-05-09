@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 
 /**
  * Created by woh on 08/05/17.
@@ -47,6 +48,32 @@ public class Result {
             }
         });
         thread.start();
+    }
+
+    public static String[][] getAllResult(MainActivity mainActivity) {
+        String[][] result = new String[3][2];
+        result[0][0] = "0/6";
+        result[0][1] = "0/6";
+        result[1][0] = "0/6";
+        result[1][1] = "0/6";
+        result[2][0] = "0/6";
+        result[2][1] = "0/6";
+        FileInputStream fis;
+        try {
+
+            for(int i=1;i<=3;i++) {
+                fis = mainActivity.openFileInput("result_"+i+".txt");
+                BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+                String[] s1 = br.readLine().split(",");
+                String[] s2 = br.readLine().split(",");
+                result[i-1][0] = s1[0]+"/6";
+                result[i-1][1] = s2[0]+"/6";
+            }
+
+        } catch (Exception e) {
+        }
+
+        return result;
     }
 
     public Result(DatabaseReference userDatabase, ExperimentTask experimentTask, MainActivity mainActivity) {

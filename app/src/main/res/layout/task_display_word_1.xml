@@ -10,6 +10,7 @@
         android:layout_marginTop="40dp"
         android:text="Task 1"
         android:textSize="20sp"
+        android:textColor="@color/blue"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -24,7 +25,11 @@
         <ListView
             android:id="@+id/taskWordListView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="100dp"
+            />
     </LinearLayout>
 
     <TextView
@@ -34,10 +39,11 @@
         android:layout_alignBaseline="@+id/taskLabel"
         android:layout_alignBottom="@+id/taskLabel"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_marginEnd="33dp"
-        android:layout_marginRight="33dp"
+        android:padding="8dp"
         android:text="30"
-        android:textSize="20dp" />
+        android:textSize="20sp"
+        android:textColor="@color/cream"
+        android:background="@drawable/timer_background"/>
 
 </RelativeLayout>

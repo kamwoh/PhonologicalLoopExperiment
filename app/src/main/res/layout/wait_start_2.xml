@@ -67,5 +67,20 @@
             android:layout_marginTop="20dp"
             android:layout_below="@+id/questionMark"
             android:text="NOPE"/>
+
+        <Button
+            android:id="@+id/resultButton"
+            android:background="@drawable/button_border"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/blue"
+            android:layout_marginTop="50dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_below="@+id/centerTextAlign"
+            android:layout_centerHorizontal="true"
+            android:text="EXPERIMENT RESULT"/>
+
     </RelativeLayout>
 </LinearLayout>

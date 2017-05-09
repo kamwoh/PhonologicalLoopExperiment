@@ -199,6 +199,11 @@ public class ExperimentTask {
     public String getFunFact() {
         String funFact = "";
         switch(experimentID) {
+            case 1:
+                funFact += "Most people struggle more in task 1 " +
+                        "because of the similar sounding letters, " +
+                        "it confuses them!";
+                return funFact;
             case 2:
                 funFact += "Many people struggle more in Experiment 2 because of the longer words.\n" +
                         "Our memory works better for lists of words that are shorter and simpler!";
