@@ -8,19 +8,18 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.provider.Settings.Secure;
+import android.widget.Toast;
 
 
-        import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 /**
  * Register
@@ -44,9 +43,10 @@ public class MainActivity extends AppCompatActivity {
 
     public final Handler handler = new Handler();
     private int experimentID;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference userDatabase;
     private ExperimentTask experimentTask;
     private Context context;
-    private String android_id;
 
     private View.OnClickListener taskButtonOnClickListener = new View.OnClickListener() {
         @Override
@@ -62,8 +62,7 @@ public class MainActivity extends AppCompatActivity {
                     experimentID = 3;
                     break;
             }
-            experimentTask = new ExperimentTask(experimentID,context);
-//            experimentTask.setContext(context);
+            experimentTask = new ExperimentTask(experimentID, context);
             MainActivity.this.setupBeforeTaskShowExperiment();
         }
     };
@@ -81,20 +80,15 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_1);
         context = this;
-        android_id = Secure.getString(this.getContentResolver(),Secure.ANDROID_ID);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
-        myRef.child("user_name").child("user_age").setValue("age");
-        myRef.child("user_name").child("user_gender").setValue("gender");
-        DatabaseReference newResult = myRef.child("user_name").child("result").child("experiment").push();
-        newResult.child("correct").setValue("1");
-        newResult.child("time_taken").setValue("1");
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        User.setAndroidID(Secure.getString(this.getContentResolver(),Secure.ANDROID_ID));
+        userDatabase = firebaseDatabase.getReference().child(User.getAndroidID());
+        User.pushToDatabase(userDatabase);
         CountDownTimer countDownTimer = new CountDownTimer(2*1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {}
@@ -184,29 +178,47 @@ public class MainActivity extends AppCompatActivity {
         taskAddItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //show prompt input box
+                if (experimentTask.isFulled()) {
+                    Toast.makeText(context, "Maximum only "+experimentTask.getTotalWord()+" word", Toast.LENGTH_SHORT).show();
+                } else {
+                    AlertDialog.Builder popUp = new AlertDialog.Builder(context);
+                    final EditText et = new EditText(context);
+                    popUp.setView(et);
+                    popUp.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            experimentTask.saveUserInput(et.getText().toString());
+                            itemListAdapter.notifyDataSetChanged();
+                        }
+                    });
+                    AlertDialog ad = popUp.create();
+                    ad.setTitle("Enter the word: ");
+                    ad.show();
+                }
+            }
+        });
+
+        itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 AlertDialog.Builder popUp = new AlertDialog.Builder(context);
                 final EditText et = new EditText(context);
+                et.setText(((TextView)view).getText());
                 popUp.setView(et);
                 popUp.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
-                        experimentTask.saveUserInput(et.getText().toString());
+                        experimentTask.updateUserInput(position, et.getText().toString());
+                        itemListAdapter.notifyDataSetChanged();
                     }
                 });
                 AlertDialog ad = popUp.create();
                 ad.setTitle("Enter the word: ");
                 ad.show();
-                itemListAdapter.notifyDataSetChanged();
             }
         });
     }
 
     public void setupAfterTaskShowResult() {
         setContentView(R.layout.after_task_show_result_1);
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = firebaseDatabase.getReference("message");
-        myRef.setValue("Hello World");
         ArrayAdapter<String> givenWord = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, experimentTask.getWordList());
         ArrayAdapter<String> userInput = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, experimentTask.getUserInputList());
     }

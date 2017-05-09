@@ -21,6 +21,7 @@ public class ExperimentTask {
     private int experimentID = 1;
     private int taskNo = 1;
     private int taskDuration = 0;
+    private int totalWord = 6;
     private Context mcontext;
     protected ArrayList<String> task1 = new ArrayList<>();
     protected ArrayList<String> task2 = new ArrayList<>();
@@ -36,7 +37,18 @@ public class ExperimentTask {
     }
 
     public String getExperimentName() {
-        return "Experiment OneTwoThree";
+        switch(experimentID) {
+            case 1:
+                return "Experiment 1: Word Length Effect";
+            case 2:
+                return "Experiment 2: Phonological Similarity Effect";
+            default:
+                return "Experiment 3: Articulacy Suppression";
+        }
+    }
+
+    public String getExperimentID() {
+        return String.valueOf(experimentID);
     }
 
     private void run() {
@@ -52,6 +64,15 @@ public class ExperimentTask {
         else return task2;
     }
 
+    public boolean isFulled() {
+        if(taskNo==1) return task1_a.size() == totalWord;
+        else return task2_a.size() == totalWord;
+    }
+
+    public int getTotalWord() {
+        return totalWord;
+    }
+
     public void getResult() {
 
     }
@@ -59,6 +80,11 @@ public class ExperimentTask {
     public ArrayList<String> getUserInputList() {
         if(taskNo==1) return task1_a;
         else return task2_a;
+    }
+
+    public void updateUserInput(int index, String userInput) {
+        if(taskNo==1) task1_a.set(index, userInput);
+        else task2_a.set(index, userInput);
     }
 
     public void saveUserInput(String userInput) {
