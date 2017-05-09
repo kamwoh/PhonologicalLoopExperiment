@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFinish() {
                 MainActivity.this.setContentView(R.layout.wait_start_2);
                 Button startButton = (Button) MainActivity.this.findViewById(R.id.startButton);
+                Button exitButton = (Button) MainActivity.this.findViewById(R.id.exitButton);
                 startButton.setOnClickListener(startButtonOnClickListener);
             }
         }.start();

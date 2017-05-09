@@ -3,4 +3,15 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="instruction_label">Carefully read the instruction below and click OK to continue."</string>
+    <string name="instruction_detail">
+        There will be <b>two</b> tasks in this experiment, you must complete both tasks before proceeding to the next task.
+        \nOn each task, a list of letters will appear, the list is presented for <b>five</b> seconds.
+        \nAfter that, you will need to enter the letters as in the list it was presented to you.
+        \n
+        \nFor example:
+        \n<i>If first letter in the list was 'F'
+        \nThen you need to enter the letter 'F' in the answer space provided</i>
+        \n
+        \nThere is no way to correct mistakes, so be careful!</string>
 </resources>
