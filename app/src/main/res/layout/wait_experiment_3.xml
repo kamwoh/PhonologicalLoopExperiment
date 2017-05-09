@@ -46,6 +46,6 @@
             android:layout_alignRight="@+id/experimentButton2"
             android:layout_alignStart="@+id/experimentButton2"
             android:layout_below="@+id/experimentButton2"
-            android:text="Articulary suppression" />
+            android:text="Articulacy suppression" />
     </RelativeLayout>
 </LinearLayout>

@@ -1,26 +1,23 @@
 package com.example.woh.cogsci;
 
-import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.provider.Settings.Secure;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.provider.Settings.Secure;
+import android.widget.Toast;
 
-
-        import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 /**
  * Register
@@ -44,14 +41,15 @@ public class MainActivity extends AppCompatActivity {
 
     public final Handler handler = new Handler();
     private int experimentID;
+    private long timeTakenTask1, timeTakenTask2;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference userDatabase;
     private ExperimentTask experimentTask;
-    private Context context;
-    private String android_id;
 
     private View.OnClickListener taskButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            switch(v.getId()) {
+            switch (v.getId()) {
                 case R.id.experimentButton1:
                     experimentID = 1;
                     break;
@@ -62,8 +60,7 @@ public class MainActivity extends AppCompatActivity {
                     experimentID = 3;
                     break;
             }
-            experimentTask = new ExperimentTask(experimentID,context);
-//            experimentTask.setContext(context);
+            experimentTask = new ExperimentTask(experimentID, MainActivity.this);
             MainActivity.this.setupBeforeTaskShowExperiment();
         }
     };
@@ -81,23 +78,22 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_1);
-        context = this;
-        android_id = Secure.getString(this.getContentResolver(),Secure.ANDROID_ID);
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference();
-        myRef.child("user_name").child("user_age").setValue("age");
-        myRef.child("user_name").child("user_gender").setValue("gender");
-        DatabaseReference newResult = myRef.child("user_name").child("result").child("experiment").push();
-        newResult.child("correct").setValue("1");
-        newResult.child("time_taken").setValue("1");
-        CountDownTimer countDownTimer = new CountDownTimer(2*1000, 1000) {
+        User.setAndroidID(Secure.getString(this.getContentResolver(), Secure.ANDROID_ID));
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        userDatabase = firebaseDatabase.getReference().child(User.getAndroidID());
+
+        if(User.userExist())
+            User.pushToDatabase(userDatabase);
+
+        CountDownTimer countDownTimer = new CountDownTimer(2 * 1000, 1000) {
             @Override
-            public void onTick(long millisUntilFinished) {}
+            public void onTick(long millisUntilFinished) {
+            }
 
             @Override
             public void onFinish() {
@@ -114,9 +110,10 @@ public class MainActivity extends AppCompatActivity {
         TextView experimentName = (TextView) findViewById(R.id.experimentName);
         experimentName.setText(experimentTask.getExperimentName());
 
-        CountDownTimer countDownTimer = new CountDownTimer(2*1000, 1000) {
+        CountDownTimer countDownTimer = new CountDownTimer(2 * 1000, 1000) {
             @Override
-            public void onTick(long millisUntilFinished) {}
+            public void onTick(long millisUntilFinished) {
+            }
 
             @Override
             public void onFinish() {
@@ -128,11 +125,12 @@ public class MainActivity extends AppCompatActivity {
     public void setupBeforeTaskReady() {
         setContentView(R.layout.before_task_ready_2);
         TextView beforeTaskLabel = (TextView) findViewById(R.id.beforeTaskLabel);
-        beforeTaskLabel.setText("Task "+experimentTask.getTaskNo());
+        beforeTaskLabel.setText("Task " + experimentTask.getTaskNo());
 
-        CountDownTimer countDownTimer = new CountDownTimer(2*1000, 1000) {
+        CountDownTimer countDownTimer = new CountDownTimer(2 * 1000, 1000) {
             @Override
-            public void onTick(long millisUntilFinished) {}
+            public void onTick(long millisUntilFinished) {
+            }
 
             @Override
             public void onFinish() {
@@ -150,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
     public void setupTaskDisplayWord() {
         setContentView(R.layout.task_display_word_1);
         TextView taskLabel = (TextView) findViewById(R.id.taskLabel);
-        taskLabel.setText("Task "+experimentTask.getTaskNo());
+        taskLabel.setText("Task " + experimentTask.getTaskNo());
 
         ArrayAdapter<String> wordListAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, experimentTask.getWordList());
         ListView taskWordListView = (ListView) findViewById(R.id.taskWordListView);
@@ -169,10 +167,13 @@ public class MainActivity extends AppCompatActivity {
         final ArrayAdapter<String> itemListAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, experimentTask.getUserInputList());
         itemList.setAdapter(itemListAdapter);
 
+        final long startTime = System.currentTimeMillis();
+
         taskDoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (experimentTask.getTaskNo() == 1) {
+                    experimentTask.setTimeTaken((System.currentTimeMillis()-startTime)/1000);
                     experimentTask.nextTask();
                     setupBeforeTaskReady(); //task 2
                 } else {
@@ -184,31 +185,54 @@ public class MainActivity extends AppCompatActivity {
         taskAddItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //show prompt input box
-                AlertDialog.Builder popUp = new AlertDialog.Builder(context);
-                final EditText et = new EditText(context);
+                if (experimentTask.isFulled()) {
+                    Toast.makeText(MainActivity.this, "Maximum only " + experimentTask.getTotalWord() + " word", Toast.LENGTH_SHORT).show();
+                } else {
+                    AlertDialog.Builder popUp = new AlertDialog.Builder(MainActivity.this);
+                    final EditText et = new EditText(MainActivity.this);
+                    popUp.setView(et);
+                    popUp.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            experimentTask.saveUserInput(et.getText().toString());
+                            itemListAdapter.notifyDataSetChanged();
+                        }
+                    });
+                    AlertDialog ad = popUp.create();
+                    ad.setTitle("Enter the word: ");
+                    ad.show();
+                }
+            }
+        });
+
+        itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                AlertDialog.Builder popUp = new AlertDialog.Builder(MainActivity.this);
+                final EditText et = new EditText(MainActivity.this);
+                et.setText(((TextView) view).getText());
                 popUp.setView(et);
                 popUp.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
-                        experimentTask.saveUserInput(et.getText().toString());
+                        experimentTask.updateUserInput(position, et.getText().toString());
+                        itemListAdapter.notifyDataSetChanged();
                     }
                 });
                 AlertDialog ad = popUp.create();
                 ad.setTitle("Enter the word: ");
                 ad.show();
-                itemListAdapter.notifyDataSetChanged();
             }
         });
     }
 
     public void setupAfterTaskShowResult() {
         setContentView(R.layout.after_task_show_result_1);
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = firebaseDatabase.getReference("message");
-        myRef.setValue("Hello World");
+        Result result = experimentTask.getResult();
+        result.pushToDatabase();
         ArrayAdapter<String> givenWord = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, experimentTask.getWordList());
         ArrayAdapter<String> userInput = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, experimentTask.getUserInputList());
     }
 
+    public DatabaseReference getUserDatabase() {
+        return userDatabase;
+    }
 }
