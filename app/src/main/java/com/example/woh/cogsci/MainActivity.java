@@ -1,12 +1,14 @@
 package com.example.woh.cogsci;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.provider.Settings.Secure;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,6 +20,8 @@ import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 /**
  * Register
@@ -196,21 +200,12 @@ public class MainActivity extends AppCompatActivity {
         taskDoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-<<<<<<< HEAD
                 setupAfterTaskShowResult();
-=======
-                experimentTask.setTimeTaken((System.currentTimeMillis() - startTime) / 1000);
->>>>>>> d7b61f4412ba025316e1c173f8064139796a4c2b
-                if (experimentTask.getTaskNo() == 1) {
-                    experimentTask.nextTask();
-<<<<<<< HEAD
-                    setupBeforeTaskReady(); //task 2
-=======
-                    setupBeforeTaskInstruction(); //task 2
-                } else {
-                    setupAfterTaskShowResult();
->>>>>>> d7b61f4412ba025316e1c173f8064139796a4c2b
-                }
+//                experimentTask.setTimeTaken((System.currentTimeMillis() - startTime) / 1000);
+//                if (experimentTask.getTaskNo() == 1) {
+//                    experimentTask.nextTask();
+//                    setupBeforeTaskInstruction(); //task 2
+//                }
             }
         });
 
@@ -271,22 +266,37 @@ public class MainActivity extends AppCompatActivity {
         TextView resultTask = (TextView) findViewById(R.id.result_textView6);
 
         //Results gathered from the tasks
-        ArrayAdapter<String> givenWord = new ArrayAdapter<>(this, R.layout.text_style1, experimentTask.getWordList());
-        ArrayAdapter<String> userInput = new ArrayAdapter<>(this, R.layout.text_style1, experimentTask.getUserInputList());
+        ArrayList<String> wordList = experimentTask.getWordList();
+        ArrayList<String> userAns = experimentTask.getUserInputList();
 
-        for(int i=0;i<experimentTask.getWordList().size();i++){
-//            resultGivenWords.
-        }
+        ArrayAdapter<String> givenWord = new ArrayAdapter<>(this, R.layout.text_style1, wordList);
+        ArrayAdapter<String> userInput = new ArrayAdapter<>(this, R.layout.text_style1, userAns);
 
         resultTask.setText("Task "+experimentTask.getTaskNo());
         resultGivenWords.setAdapter(givenWord);
         resultAnswer.setAdapter(userInput);
 
+//        for(int i=0;i<userAns.size();i++){
+//            String toCheck = userAns.get(i);
+//            if(!wordList.get(i).equals(toCheck)){
+//                ((TextView) resultAnswer.getChildAt(i)).setBackground(this.getResources().getDrawable(R.drawable.rounded_rect));
+//            }
+//        }
+        final long startTime = System.currentTimeMillis();
+
         //On clicking "NEXT" button
         resultNextButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                return;
+                if(experimentTask.getTaskNo()==1){
+                    experimentTask.setTimeTaken((System.currentTimeMillis() - startTime) / 1000);
+                    if (experimentTask.getTaskNo() == 1) {
+                        experimentTask.nextTask();
+                        setupBeforeTaskInstruction(); //task 2
+                    }
+                }else{
+                    setupLanding();
+                }
             }
         });
 
