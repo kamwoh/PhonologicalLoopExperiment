@@ -1,13 +1,16 @@
 package com.example.woh.cogsci;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.provider.Settings.Secure;
@@ -182,7 +185,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //show prompt input box
-                experimentTask.saveUserInput("User input from prompt input");
+                AlertDialog.Builder popUp = new AlertDialog.Builder(context);
+                final EditText et = new EditText(context);
+                popUp.setView(et);
+                popUp.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        experimentTask.saveUserInput(et.getText().toString());
+                    }
+                });
+                AlertDialog ad = popUp.create();
+                ad.setTitle("Enter the word: ");
+                ad.show();
                 itemListAdapter.notifyDataSetChanged();
             }
         });
@@ -193,6 +207,8 @@ public class MainActivity extends AppCompatActivity {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference myRef = firebaseDatabase.getReference("message");
         myRef.setValue("Hello World");
+        ArrayAdapter<String> givenWord = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, experimentTask.getWordList());
+        ArrayAdapter<String> userInput = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, experimentTask.getUserInputList());
     }
 
 }
