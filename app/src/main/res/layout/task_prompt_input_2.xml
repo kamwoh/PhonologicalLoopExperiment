@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="22dp"
         android:text="Add word"
-        android:textSize="16px"
+        android:textSize="30px"
         android:textColor="@color/blue"
         android:background="@color/cream"
         android:layout_alignParentBottom="true"
@@ -40,7 +40,7 @@
     </ListView>
 
     <Button
-        android:textSize="16px"
+        android:textSize="30px"
         android:id="@+id/taskDoneButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,5 +48,5 @@
         android:layout_alignLeft="@+id/itemList"
         android:layout_alignStart="@+id/itemList"
         android:background="@color/cream"
-        android:text="Done" />
+        android:text="Done"/>
 </RelativeLayout>
