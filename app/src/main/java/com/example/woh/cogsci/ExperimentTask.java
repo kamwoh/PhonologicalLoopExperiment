@@ -10,7 +10,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.function.Consumer;
 
 /**
  * Created by woh on 07/05/17.
@@ -88,7 +87,7 @@ public class ExperimentTask {
 
     public Result getResult() {
         calculateResult();
-        return new Result(mcontext.getUserDatabase(), this);
+        return new Result(mcontext.getUserDatabase(), this, mcontext);
     }
 
     public ArrayList<String> getUserInputList() {
@@ -160,4 +159,57 @@ public class ExperimentTask {
         else timeTaken2 = timeTaken;
     }
 
+    public String getInstruction() {
+        String instruction = "";
+        switch(experimentID) {
+            case 1:
+                instruction += "There will be two tasks in this experiment, you must complete both tasks before proceeding to the next experiment.\n";
+                instruction += "On each task, a list of letters will appear, the list is presented for five seconds.\n";
+                instruction += "After that, you will need to enter the letters as in the list it was presented to you.\n\n";
+                instruction += "For example:\n";
+                instruction += "If first letter in the list was \'F\'\n";
+                instruction += "Then you need to enter the letter \'F\' in the answer space provided\n\n";
+                instruction += "There is no way to correct mistakes, so be careful!";
+                return instruction;
+            case 2:
+                instruction += "This task contains two tasks, you must complete tasks. "+
+                        "On every task, there will be a list of words presented and you will be given time to read and memorize every word.\n" +
+                        "\n" +
+                        "Once the time is up, you are required to enter the words according to the sequence that it was presented.\n" +
+                        "\n" +
+                        "Focus is key my friend, good luck!";
+                return instruction;
+            default:
+                if(taskNo==1) {
+                    instruction += "You are about to begin Task 1 of Experiment 3. In this trial, read the words presented out loud.\n" +
+                            "Then, write the words in the correct sequence.\n\n" +
+                            "The words are random, so make sure you are not in a public place to avoid looking like a weirdo.";
+                } else {
+                    instruction += "You are about to begin Task 2 of Experiment 3. In this trial, " +
+                            "you must add the word \"The\" before every word. [For " +
+                            "example : the buffalo, the house ]\n" +
+                            "\n" +
+                            "Write the words only in the correct sequence, without \n" +
+                            "the word \"The\". [For example: buffalo, house]";
+                }
+                return instruction;
+        }
+    }
+
+    public String getFunFact() {
+        String funFact = "";
+        switch(experimentID) {
+            case 2:
+                funFact += "Many people struggle more in Experiment 2 because of the longer words.\n" +
+                        "Our memory works better for lists of words that are shorter and simpler!";
+                return funFact;
+            default:
+                funFact += "Trial 2 may have been a bigger challenge to " +
+                        "complete since every word became a lot longer" +
+                        "with the addition of the word \"The\". This addition " +
+                        "also causes a phonological similarity effect, which " +
+                        "can be quite confusing.";
+                return funFact;
+        }
+    }
 }
