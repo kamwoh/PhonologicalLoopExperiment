@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/backgroundColor">
 
     <TextView
         android:id="@+id/promptInputTitle"
@@ -9,6 +9,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
+        android:textSize="20sp"
+        android:textColor="@color/blue"
         android:text="List the words you remember" />
 
     <Button
@@ -17,11 +19,16 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="22dp"
         android:text="Add word"
+        android:textSize="16px"
+        android:textColor="@color/blue"
+        android:background="@color/cream"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/itemList"
         android:layout_alignEnd="@+id/itemList" />
 
     <ListView
+        android:textColor="@color/blue"
+        android:textSize="20sp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/promptInputTitle"
@@ -33,11 +40,13 @@
     </ListView>
 
     <Button
+        android:textSize="16px"
         android:id="@+id/taskDoneButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/taskAddItemButton"
         android:layout_alignLeft="@+id/itemList"
         android:layout_alignStart="@+id/itemList"
+        android:background="@color/cream"
         android:text="Done" />
 </RelativeLayout>
