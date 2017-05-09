@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.woh.cogsci.RegistrationPage">
+
+    <EditText
+        android:id="@+id/ageInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="108dp"
+        android:ems="10"
+        android:hint="Age"
+        android:inputType="number" />
+
+    <RadioButton
+        android:id="@+id/buttonMale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Male"
+        android:layout_alignBaseline="@+id/buttonFemale"
+        android:layout_alignBottom="@+id/buttonFemale"
+        android:layout_alignLeft="@+id/ageInput"
+        android:layout_alignStart="@+id/ageInput"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp" />
+
+    <RadioButton
+        android:id="@+id/buttonFemale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Female"
+        android:layout_marginBottom="92dp"
+        android:layout_above="@+id/buttonNext"
+        android:layout_alignRight="@+id/ageInput"
+        android:layout_alignEnd="@+id/ageInput" />
+
+    <Button
+        android:id="@+id/buttonNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="115dp"
+        android:text="Next" />
+
+    <Button
+        android:id="@+id/buttonCheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/buttonNext"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/buttonNext"
+        android:layout_marginBottom="22dp"
+        android:text="check" />
+</RelativeLayout>
