@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:background="@color/backgroundColor">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/resultTaskX"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="56dp"
+            android:gravity="center"
+            android:text="Task X"
+            android:textColor="@color/blue"
+            android:textSize="50px" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="37dp"
+            android:gravity="center"
+            android:text="Given Sequence"
+            android:textColor="@color/blue"
+            android:textSize="32px"
+            android:layout_below="@+id/resultTaskX"
+            android:layout_toStartOf="@+id/resultNextButton" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView9"
+            android:layout_alignBottom="@+id/textView9"
+            android:layout_toEndOf="@+id/resultNextButton"
+            android:gravity="center"
+            android:text="Your Sequence"
+            android:textColor="@color/blue"
+            android:textSize="32px" />
+
+        <TextView
+            android:id="@+id/resultRS1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="GS1"
+            android:textColor="@color/blue"
+            android:layout_below="@+id/textView9"
+            android:layout_alignStart="@+id/textView9"
+            android:layout_marginStart="40dp" />
+
+        <TextView
+            android:id="@+id/resultRS2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/resultRS1"
+            android:layout_below="@+id/resultRS1"
+            android:layout_marginTop="29dp"
+            android:gravity="center"
+            android:text="GS2"
+            android:textColor="@color/blue" />
+
+        <TextView
+            android:id="@+id/resultRS3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/resultRS2"
+            android:layout_below="@+id/resultRS2"
+            android:layout_marginTop="29dp"
+            android:gravity="center"
+            android:text="GS3"
+            android:textColor="@color/blue" />
+
+        <TextView
+            android:id="@+id/resultRS4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/resultRS3"
+            android:layout_below="@+id/resultRS3"
+            android:layout_marginTop="28dp"
+            android:gravity="center"
+            android:text="GS4"
+            android:textColor="@color/blue" />
+
+        <TextView
+            android:id="@+id/resultRS5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/resultRS4"
+            android:layout_below="@+id/resultRS4"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:text="GS5"
+            android:textColor="@color/blue" />
+
+        <TextView
+            android:id="@+id/resultRS6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/resultRS5"
+            android:layout_below="@+id/resultRS5"
+            android:layout_marginTop="27dp"
+            android:gravity="center"
+            android:text="GS6"
+            android:textColor="@color/blue" />
+
+        <TextView
+            android:id="@+id/resultYS1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="YS1"
+            android:textColor="@color/blue"
+            android:layout_alignBaseline="@+id/resultRS1"
+            android:layout_alignBottom="@+id/resultRS1"
+            android:layout_alignEnd="@+id/textView10"
+            android:layout_marginEnd="36dp" />
+
+        <TextView
+            android:id="@+id/resultYS2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/resultYS1"
+            android:layout_alignTop="@+id/resultRS2"
+            android:gravity="center"
+            android:text="YS2"
+            android:textColor="@color/blue" />
+
+        <TextView
+            android:id="@+id/resultYS3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/resultYS2"
+            android:layout_alignTop="@+id/resultRS3"
+            android:gravity="center"
+            android:text="YS3"
+            android:textColor="@color/blue" />
+
+        <TextView
+            android:id="@+id/resultYS4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/resultYS3"
+            android:layout_alignTop="@+id/resultRS4"
+            android:gravity="center"
+            android:text="YS4"
+            android:textColor="@color/blue" />
+
+        <TextView
+            android:id="@+id/resultYS5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/resultRS6"
+            android:layout_alignEnd="@+id/resultYS4"
+            android:gravity="center"
+            android:text="YS5"
+            android:textColor="@color/blue" />
+
+        <TextView
+            android:id="@+id/resultYS6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/resultYS5"
+            android:layout_alignTop="@+id/resultRS6"
+            android:gravity="center"
+            android:text="YS6"
+            android:textColor="@color/blue" />
+
+        <Button
+            android:id="@+id/resultNextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/resultRS6"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="54dp"
+            android:text="Next"
+            android:textColor="@color/blue" />
+    </RelativeLayout>
+</LinearLayout>

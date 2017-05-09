@@ -8,8 +8,8 @@ import android.os.Handler;
 import android.provider.Settings.Secure;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -263,33 +263,58 @@ public class MainActivity extends AppCompatActivity {
      * 6
      */
     public void setupAfterTaskShowResult() {
-        setContentView(R.layout.after_task_show_result_1);
+        setContentView(R.layout.after_task_show_result_2);
         Result result = experimentTask.getResult();
         result.pushToDatabase();
 
         //Things in the result layout
-        ListView resultGivenWords = (ListView) findViewById(R.id.result_givenWords);
-        ListView resultAnswer = (ListView) findViewById(R.id.result_answer);
-        Button resultNextButton = (Button) findViewById(R.id.result_next);
-        TextView resultTask = (TextView) findViewById(R.id.result_textView6);
+//        ListView resultGivenWords = (ListView) findViewById(R.id.result_givenWords);
+//        ListView resultAnswer = (ListView) findViewById(R.id.result_answer);
+        Button resultNextButton = (Button) findViewById(R.id.resultNextButton);
+        TextView resultTask = (TextView) findViewById(R.id.resultTaskX);
+        ArrayList<TextView> rs = new ArrayList<>();
+        ArrayList<TextView> ys = new ArrayList<>();
+        rs.add((TextView) findViewById(R.id.resultRS1));
+        rs.add((TextView) findViewById(R.id.resultRS2));
+        rs.add((TextView) findViewById(R.id.resultRS3));
+        rs.add((TextView) findViewById(R.id.resultRS4));
+        rs.add((TextView) findViewById(R.id.resultRS5));
+        rs.add((TextView) findViewById(R.id.resultRS6));
+        ys.add((TextView) findViewById(R.id.resultYS1));
+        ys.add((TextView) findViewById(R.id.resultYS2));
+        ys.add((TextView) findViewById(R.id.resultYS3));
+        ys.add((TextView) findViewById(R.id.resultYS4));
+        ys.add((TextView) findViewById(R.id.resultYS5));
+        ys.add((TextView) findViewById(R.id.resultYS6));
 
         //Results gathered from the tasks
-        ArrayList<String> wordList = experimentTask.getWordList();
-        ArrayList<String> userAns = experimentTask.getUserInputList();
+        final ArrayList<String> wordList = experimentTask.getWordList();
+        final ArrayList<String> userAns = experimentTask.getUserInputList();
 
-        ArrayAdapter<String> givenWord = new ArrayAdapter<>(this, R.layout.text_style1, wordList);
-        ArrayAdapter<String> userInput = new ArrayAdapter<>(this, R.layout.text_style1, userAns);
+        for(int i=0;i<wordList.size();i++){
+            rs.get(i).setText(wordList.get(i));
+            if(userAns.size()>i){
+                ys.get(i).setText(userAns.get(i));
+                if(!userAns.get(i).equals(wordList.get(i))) ys.get(i).setTextColor(Color.RED);
+            }else{
+                ys.get(i).setText("");
+            }
+        }
+
+//        ArrayAdapter<String> givenWord = new ArrayAdapter<>(this, R.layout.text_style1, wordList);
+//        ArrayAdapter<String> userInput = new ArrayAdapter<>(this, R.layout.text_style1, userAns);
 
         resultTask.setText("Task "+experimentTask.getTaskNo());
-        resultGivenWords.setAdapter(givenWord);
-        resultAnswer.setAdapter(userInput);
-
+//        resultGivenWords.setAdapter(givenWord);
+//        resultAnswer.setAdapter(userInput);
+//
 //        for(int i=0;i<userAns.size();i++){
 //            String toCheck = userAns.get(i);
 //            if(!wordList.get(i).equals(toCheck)){
-//                ((TextView) resultAnswer.getChildAt(i)).setBackground(this.getResources().getDrawable(R.drawable.rounded_rect));
+//
 //            }
 //        }
+
         final long startTime = System.currentTimeMillis();
 
         //On clicking "NEXT" button
@@ -303,7 +328,7 @@ public class MainActivity extends AppCompatActivity {
                         setupBeforeTaskInstruction(); //task 2
                     }
                 }else{
-                    setupLanding();
+                    setupShowFunFact();
                 }
             }
         });

@@ -33,6 +33,7 @@
                 android:layout_alignParentTop="true"
                 android:textColor="@color/blue"
                 android:foregroundGravity="center" />
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -74,6 +75,7 @@
                 android:textSize="32px"
                 android:layout_alignTop="@+id/result_textView11"
                 android:layout_toStartOf="@+id/result_textView6" />
+
         </RelativeLayout>
 
     </RelativeLayout>
@@ -90,6 +92,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:text="next" />
+
     </RelativeLayout>
 
 </LinearLayout>
