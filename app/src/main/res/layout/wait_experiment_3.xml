@@ -26,7 +26,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:id="@+id/linearLayout">
 
             <TextView
                 android:layout_width="match_parent"
@@ -75,5 +76,16 @@
                 android:textSize="9pt"
                 android:textColor="@color/blue" />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/experimentBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout"
+            android:background="@drawable/button_border"
+            android:textColor="@color/blue"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="62dp"
+            android:text="Back" />
     </RelativeLayout>
 </LinearLayout>
