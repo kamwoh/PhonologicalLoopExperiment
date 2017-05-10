@@ -1,4 +1,7 @@
-1
+3
 g, c, b, t, v, p
 f, l, k, s, m, g
-
+a, b, l, p, d, t
+z, k, x, y, m, b
+t, b, g, d, p, v
+j, l, d, s, w, y

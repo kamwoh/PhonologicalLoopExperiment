@@ -141,7 +141,9 @@ public class ExperimentTask {
             //
 
             for(String s:br.readLine().split(", ")) task1.add(s);
-            for(String s:br.readLine().split(", ")) task2.add(s);
+            for(String s:br.readLine().split(", ")){
+                task2.add(s);
+            }
             br.close();
         }catch(FileNotFoundException e){
 			/*

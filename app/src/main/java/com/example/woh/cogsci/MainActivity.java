@@ -2,10 +2,12 @@ package com.example.woh.cogsci;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.provider.Settings.Secure;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -327,20 +329,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-//        ArrayAdapter<String> givenWord = new ArrayAdapter<>(this, R.layout.text_style1, wordList);
-//        ArrayAdapter<String> userInput = new ArrayAdapter<>(this, R.layout.text_style1, userAns);
-
         resultTask.setText("Task "+experimentTask.getTaskNo());
-//        resultGivenWords.setAdapter(givenWord);
-//        resultAnswer.setAdapter(userInput);
-//
-//        for(int i=0;i<userAns.size();i++){
-//            String toCheck = userAns.get(i);
-//            if(!wordList.get(i).equals(toCheck)){
-//
-//            }
-//        }
-
         //On clicking "NEXT" button
         resultNextButton.setOnClickListener(new View.OnClickListener(){
             @Override
