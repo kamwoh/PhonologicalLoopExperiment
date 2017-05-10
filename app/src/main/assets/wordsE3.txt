@@ -1,7 +1,1 @@
-3
-dishwasher, hummingbird, engineering, hospital, homelessness, reasoning
-automobile, apartment, basketball, mathematics, syllogism, idealism
-sophomore, feminine, grandparent, mobility, strengthen, puppeteer
-technician, unicyclist, armadillo, cadaver, forensic, cutthroat
-quadriplegic, obedience, improbable, vegetable, appreciate, invisible
-invincible, supermarket, television, alligator, dandelion, misogynist
+dishwasher, hummingbird, engineering, hospital, homelessness, reasoning, sophomore, feminine, grandparent, cadaver, strengthen, puppeteer, quadriplegic, obedience, improbable, vegetable, appreciate, invisible, automobile, apartment, basketball, mathematics, syllogism, idealism, technician, unicyclist, armadillo, mobility, forensic, cutthroat, invincible, supermarket, television, alligator, dandelion, misogynist
