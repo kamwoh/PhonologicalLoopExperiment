@@ -30,8 +30,6 @@ public class Result {
             public void run() {
 
                 try {
-                    String fileName = mainActivity.getFilesDir().getAbsolutePath()+ "/result" + experimentNumber + ".txt";
-                    File file = new File(fileName);
                     FileOutputStream fos = mainActivity.openFileOutput("result" + experimentNumber + ".txt", mainActivity.MODE_PRIVATE);
                     String write = "task1," + correct[0] + "," + timeTakenToSubmit[0] + "\n";
                     write += "task2," + correct[1] + "," + timeTakenToSubmit[1] + "\n";
@@ -42,13 +40,15 @@ public class Result {
                     Log.i("write", e.getMessage());
                 }
 
-                DatabaseReference newResult = userDatabase.child("result").child(experimentTask.getExperimentID()).push();
-                DatabaseReference task1 = newResult.child("task 1");
-                DatabaseReference task2 = newResult.child("task 2");
-                task1.child("correct").setValue(correct[0]);
-                task1.child("time_taken").setValue(timeTakenToSubmit[0]);
-                task2.child("correct").setValue(correct[1]);
-                task2.child("time_taken").setValue(timeTakenToSubmit[1]);
+                try {
+                    DatabaseReference newResult = userDatabase.child("result").child(experimentTask.getExperimentID()).push();
+                    DatabaseReference task1 = newResult.child("task 1");
+                    DatabaseReference task2 = newResult.child("task 2");
+                    task1.child("correct").setValue(correct[0]);
+                    task1.child("time_taken").setValue(timeTakenToSubmit[0]);
+                    task2.child("correct").setValue(correct[1]);
+                    task2.child("time_taken").setValue(timeTakenToSubmit[1]);
+                } catch (Exception e) {} //in case any connection error
             }
         });
         thread.start();

@@ -70,8 +70,8 @@ public class ExperimentTask {
     }
 
     public int getTaskDuration() {
-        if(taskNo==1) return task1.size();
-        else return task2.size();
+        if(taskNo==1) return task1.size()*experimentID;
+        else return task2.size()*experimentID;
     }
 
     public ArrayList<String> getWordList() {
@@ -85,6 +85,8 @@ public class ExperimentTask {
     }
 
     private void calculateResult() {
+        correct1=0;
+        correct2=0;
         for(int i=0;i<totalWord;i++){
             try {
                 if (task1.get(i).toLowerCase().equals(task1_a.get(i).toLowerCase())) correct1++;
@@ -209,16 +211,16 @@ public class ExperimentTask {
         String funFact = "";
         switch(experimentID) {
             case 1:
-                funFact += "Most people struggle more in task 1 " +
+                funFact += "Most people struggle more in Task 1 " +
                         "because of the similar sounding letters, " +
                         "it confuses them!";
                 return funFact;
             case 2:
-                funFact += "Many people struggle more in Experiment 2 because of the longer words.\n" +
+                funFact += "Many people struggle more in Task 2 because of the longer words.\n" +
                         "Our memory works better for lists of words that are shorter and simpler!";
                 return funFact;
             default:
-                funFact += "Trial 2 may have been a bigger challenge to " +
+                funFact += "Task 2 may have been a bigger challenge to " +
                         "complete since every word became a lot longer" +
                         "with the addition of the word \"The\". This addition " +
                         "also causes a phonological similarity effect, which " +

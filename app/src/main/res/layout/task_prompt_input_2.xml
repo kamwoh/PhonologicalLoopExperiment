@@ -9,7 +9,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:textSize="20sp"
+        android:textSize="9pt"
         android:textColor="@color/blue"
         android:text="List the words you remember" />
 
@@ -42,7 +42,6 @@
     </ListView>
 
     <Button
-        android:textSize="16sp"
         android:id="@+id/taskDoneButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

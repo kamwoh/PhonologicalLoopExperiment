@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -47,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
     public final Handler handler = new Handler();
     private int experimentID;
-    private long timeTakenTask1, timeTakenTask2;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference userDatabase;
     private ExperimentTask experimentTask;
@@ -77,9 +78,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.welcome_1);
         User.setAndroidID(Secure.getString(this.getContentResolver(), Secure.ANDROID_ID));
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        userDatabase = firebaseDatabase.getReference().child(User.getAndroidID());
-        User.pushToDatabase(userDatabase);
+        try {
+            firebaseDatabase = FirebaseDatabase.getInstance();
+            userDatabase = firebaseDatabase.getReference().child(User.getAndroidID());
+            User.pushToDatabase(userDatabase);
+        } catch(Exception e) {} //in case any connection error
 
         new CountDownTimer(2 * 1000, 1000) {
             @Override
@@ -189,27 +192,37 @@ public class MainActivity extends AppCompatActivity {
         final Iterator<String> iterator = wordList.iterator();
         final TextView timer = (TextView) findViewById(R.id.timerLabel);
         final TextView wordDisplay = (TextView) findViewById(R.id.display_wordDisplay);
-        wordDisplay.setText("");
-        timer.setText(experimentTask.getTaskDuration()+"");
+        wordDisplay.setText(iterator.next());
+        timer.setText((experimentTask.getTaskDuration()-1)+"");
 
 //        final ArrayAdapter<String> wordListAdapter = new ArrayAdapter<>(this, R.layout.text_style1, wordList);
 //        ListView taskWordListView = (ListView) findViewById(R.id.taskWordListView);
 //        taskWordListView.setAdapter(wordListAdapter);
         Log.i("duration", experimentTask.getTaskDuration()+"");
-        new MyTimer(experimentTask.getTaskDuration(),  1000){
+        new MyTimer(experimentTask.getTaskDuration()-1,  1000){
 
             @Override
             public void onTick(long millisUntilFinished) {
                 timer.setText(String.valueOf((millisUntilFinished/1000)));
-                String word = iterator.next();
-                TextView wordDisplay = (TextView) findViewById(R.id.display_wordDisplay);
-                wordDisplay.setText(word);
             }
 
             @Override
             public void onFinish() {
                 setupTaskPromptInput();
             }
+        }.start();
+
+        new MyTimer(experimentTask.getTaskDuration(), experimentID*1000){
+            @Override
+            public void onTick(long millisUntilFinished) {
+                String word = "";
+                if(iterator.hasNext())
+                    word = iterator.next();
+                wordDisplay.setText(word);
+            }
+
+            @Override
+            public void onFinish() {}
         }.start();
 
 //        TaskTimer taskTimer = new TaskTimer(experimentTask.getTaskDuration(), this);
@@ -233,12 +246,8 @@ public class MainActivity extends AppCompatActivity {
         taskDoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setupAfterTaskShowResult();
                 experimentTask.setTimeTaken((System.currentTimeMillis() - startTime) / 1000);
-//                if (experimentTask.getTaskNo() == 1) {
-//                    experimentTask.nextTask();
-//                    setupBeforeTaskInstruction(); //task 2
-//                }
+                setupAfterTaskShowResult();
             }
         });
 
@@ -263,6 +272,7 @@ public class MainActivity extends AppCompatActivity {
 //                }
 //            }
 //        });
+        final InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
         itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -272,14 +282,21 @@ public class MainActivity extends AppCompatActivity {
                 if(!((TextView)view).getText().equals((position+1)+"."))
                     et.setText(((TextView) view).getText());
                 popUp.setView(et);
+//                imm.showSoftInput(et, 0);
+
                 popUp.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        experimentTask.updateUserInput(position, et.getText().toString());
-                        itemListAdapter.notifyDataSetChanged();
+                        if(!et.getText().toString().equals("")) {
+                            experimentTask.updateUserInput(position, et.getText().toString());
+                            itemListAdapter.notifyDataSetChanged();
+                        } else {
+                            et.setText((position+1)+".");
+                        }
                     }
                 });
                 AlertDialog ad = popUp.create();
                 ad.setTitle("Enter the word: ");
+                ad.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
                 ad.show();
             }
         });
@@ -290,8 +307,6 @@ public class MainActivity extends AppCompatActivity {
      */
     public void setupAfterTaskShowResult() {
         setContentView(R.layout.after_task_show_result_2);
-        Result result = experimentTask.getResult();
-        result.pushToDatabase();
 
         //Things in the result layout
 //        ListView resultGivenWords = (ListView) findViewById(R.id.result_givenWords);
@@ -346,10 +361,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 if(experimentTask.getTaskNo()==1){
-                    if (experimentTask.getTaskNo() == 1) {
-                        experimentTask.nextTask();
-                        setupBeforeTaskInstruction(); //task 2
-                    }
+                    experimentTask.nextTask();
+                    setupBeforeTaskInstruction(); //task 2
                 }else{
                     setupShowFunFact();
                 }
@@ -363,6 +376,8 @@ public class MainActivity extends AppCompatActivity {
      */
     public void setupShowFunFact() {
         setContentView(R.layout.fun_fact_experiment_2_3);
+        Result result = experimentTask.getResult();
+        result.pushToDatabase();
         TextView funFactDetail = (TextView) findViewById(R.id.funFactDetail);
         funFactDetail.setText(experimentTask.getFunFact());
         Button funFactOKButton = (Button) findViewById(R.id.funFactOKButton);
