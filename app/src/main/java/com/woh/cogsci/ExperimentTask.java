@@ -30,7 +30,7 @@ public class ExperimentTask {
     private long timeTaken1, timeTaken2;
     private Random r = new Random();
 
-    public ExperimentTask(int id,MainActivity context) {
+    public ExperimentTask(int id, MainActivity context) {
         experimentID = id;
         mcontext = context;
         taskNo = 1;
@@ -51,7 +51,7 @@ public class ExperimentTask {
     }
 
     public String getExperimentName() {
-        switch(experimentID) {
+        switch (experimentID) {
             case 1:
                 return "Experiment 1: Phonological Similarity Effect";
             case 2:
@@ -70,30 +70,26 @@ public class ExperimentTask {
     }
 
     public int getTaskDuration() {
-        if(taskNo==1) return task1.size()*experimentID;
-        else return task2.size()*experimentID;
+        if (taskNo == 1) return task1.size() * experimentID;
+        else return task2.size() * experimentID;
     }
 
     public ArrayList<String> getWordList() {
-        if(taskNo==1) return task1;
+        if (taskNo == 1) return task1;
         else return task2;
     }
 
     public boolean isFulled() {
-        if(taskNo==1) return task1_a.size() == task1.size();
+        if (taskNo == 1) return task1_a.size() == task1.size();
         else return task2_a.size() == task2.size();
     }
 
     private void calculateResult() {
-        correct1=0;
-        correct2=0;
-        for(int i=0;i<totalWord;i++){
-            try {
-                if (task1.get(i).toLowerCase().equals(task1_a.get(i).toLowerCase())) correct1++;
-            } catch(Exception e) {}
-            try {
-                if (task2.get(i).toLowerCase().equals(task2_a.get(i).toLowerCase())) correct2++;
-            } catch(Exception e) {}
+        correct1 = 0;
+        correct2 = 0;
+        for (int i = 0; i < 6; i++) {
+            if (task1.get(i).equalsIgnoreCase(task1_a.get(i))) correct1++;
+            if (task2.get(i).equalsIgnoreCase(task2_a.get(i))) correct2++;
         }
     }
 
@@ -107,12 +103,12 @@ public class ExperimentTask {
     }
 
     public ArrayList<String> getUserInputList() {
-        if(taskNo==1) return task1_a;
+        if (taskNo == 1) return task1_a;
         else return task2_a;
     }
 
     public void updateUserInput(int index, String userInput) {
-        if(taskNo==1) task1_a.set(index, userInput);
+        if (taskNo == 1) task1_a.set(index, userInput);
         else task2_a.set(index, userInput);
     }
 
@@ -124,44 +120,57 @@ public class ExperimentTask {
         return taskNo;
     }
 
-    public void loadFile(int experiment){
-        String file = "wordsE"+experiment+".txt";
-        for(int i=0;i<experiment;i++) taskDuration+=5;
+    public void loadFile(int experiment) {
+        String file = "wordsE" + experiment + ".txt";
+        for (int i = 0; i < experiment; i++) taskDuration += 5;
         loadList(file);
     }
 
-    private void loadList(String file){
+    private void loadList(String file) {
         AssetManager am = mcontext.getAssets();
-        try{
+        try {
             InputStream path = am.open(file);
             BufferedReader br = new BufferedReader(new InputStreamReader(path));
-            if(experimentID==1) {
+            if (experimentID == 1) {
                 String line = br.readLine();
-                int toRead = r.nextInt(Integer.parseInt(line))+1;
-                for (int i = 0; i < toRead - 1; i++) {line = br.readLine();line = br.readLine();}//skip pass the unwanted list
+                int toRead = r.nextInt(Integer.parseInt(line)) + 1;
+                for (int i = 0; i < toRead - 1; i++) {
+                    line = br.readLine();
+                    line = br.readLine();
+                }//skip pass the unwanted list
                 for (String s : br.readLine().split(", ")) task1.add(s);
                 for (String s : br.readLine().split(", ")) task2.add(s);
-            }else if(experimentID==2){
-                ArrayList<String> t1 = new ArrayList<>();    for(String s:br.readLine().split(", ")) t1.add(s);
-                ArrayList<String> t2 = new ArrayList<>();    for(String s:br.readLine().split(", ")) t2.add(s);
-                for(int i=0;i<6;i++){task1.add(t1.remove(r.nextInt(t1.size())));}
-                for(int i=0;i<6;i++){task2.add(t2.remove(r.nextInt(t2.size())));}
-            }else{
+            } else if (experimentID == 2) {
                 ArrayList<String> t1 = new ArrayList<>();
-                for(String s:br.readLine().split(", ")) t1.add(s);
-                for(int i=0;i<6;i++){task1.add(t1.remove(r.nextInt(t1.size())));}
-                for(int i=0;i<6;i++){task2.add(t1.remove(r.nextInt(t1.size())));}
+                for (String s : br.readLine().split(", ")) t1.add(s);
+                ArrayList<String> t2 = new ArrayList<>();
+                for (String s : br.readLine().split(", ")) t2.add(s);
+                for (int i = 0; i < 6; i++) {
+                    task1.add(t1.remove(r.nextInt(t1.size())));
+                }
+                for (int i = 0; i < 6; i++) {
+                    task2.add(t2.remove(r.nextInt(t2.size())));
+                }
+            } else {
+                ArrayList<String> t1 = new ArrayList<>();
+                for (String s : br.readLine().split(", ")) t1.add(s);
+                for (int i = 0; i < 6; i++) {
+                    task1.add(t1.remove(r.nextInt(t1.size())));
+                }
+                for (int i = 0; i < 6; i++) {
+                    task2.add(t1.remove(r.nextInt(t1.size())));
+                }
             }
             br.close();
-        }catch(FileNotFoundException e){
-			/*
+        } catch (FileNotFoundException e) {
+            /*
 				ABORT MISSION
 				NO WORD LIST FOUND
 			*/
-            Log.e("GG",e.toString());
-        }catch(IOException e){
+            Log.e("GG", e.toString());
+        } catch (IOException e) {
             // ERROR ???
-            Log.e("GG.com",e.toString());
+            Log.e("GG.com", e.toString());
         }
     }
 
@@ -174,13 +183,13 @@ public class ExperimentTask {
     }
 
     public void setTimeTaken(long timeTaken) {
-        if(taskNo==1) timeTaken1 = timeTaken;
+        if (taskNo == 1) timeTaken1 = timeTaken;
         else timeTaken2 = timeTaken;
     }
 
     public String getInstruction() {
         String instruction = "";
-        switch(experimentID) {
+        switch (experimentID) {
             case 1:
                 instruction += "There will be two tasks in this experiment, you must complete both tasks before proceeding to the next experiment.\n";
                 instruction += "On each task, a sequence of letters will appear, each letter is presented for one second.\n";
@@ -191,7 +200,7 @@ public class ExperimentTask {
                 instruction += "There is no way to correct mistakes, so be careful!";
                 return instruction;
             case 2:
-                instruction += "This task contains two tasks, you must complete tasks. "+
+                instruction += "This task contains two tasks, you must complete tasks. " +
                         "On every task, there will be a sequence of words presented and you will be given time to read and memorize every word.\n" +
                         "\n" +
                         "Once the time is up, you are required to enter the words according to the sequence that it was presented.\n" +
@@ -199,7 +208,7 @@ public class ExperimentTask {
                         "Focus is key my friend, good luck!";
                 return instruction;
             default:
-                if(taskNo==1) {
+                if (taskNo == 1) {
                     instruction += "You are about to begin Task 1 of Experiment 3. In this task, read the words presented out loud.\n" +
                             "Then, write the words in the correct sequence.\n\n" +
                             "The words are random, so make sure you are not in a public place to avoid looking like a weirdo.";
@@ -217,7 +226,7 @@ public class ExperimentTask {
 
     public String getFunFact() {
         String funFact = "";
-        switch(experimentID) {
+        switch (experimentID) {
             case 1:
                 funFact += "Most people struggle more in Task 1 " +
                         "because of the similar sounding letters, " +
