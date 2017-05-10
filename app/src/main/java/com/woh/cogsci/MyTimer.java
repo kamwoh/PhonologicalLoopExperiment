@@ -1,7 +1,6 @@
-package com.example.woh.cogsci;
+package com.woh.cogsci;
 
 import android.os.Handler;
-import android.util.Log;
 
 /**
  * Created by woh on 10/05/17.

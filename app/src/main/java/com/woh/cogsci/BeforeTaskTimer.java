@@ -1,7 +1,6 @@
-package com.example.woh.cogsci;
+package com.woh.cogsci;
 
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.widget.TextView;
 
 /**

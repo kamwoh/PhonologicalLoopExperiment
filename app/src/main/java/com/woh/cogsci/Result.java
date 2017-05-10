@@ -1,12 +1,10 @@
-package com.example.woh.cogsci;
+package com.woh.cogsci;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;

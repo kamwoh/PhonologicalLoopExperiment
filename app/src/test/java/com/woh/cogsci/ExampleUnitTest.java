@@ -1,4 +1,4 @@
-package com.example.woh.cogsci;
+package com.woh.cogsci;
 
 import org.junit.Test;
 

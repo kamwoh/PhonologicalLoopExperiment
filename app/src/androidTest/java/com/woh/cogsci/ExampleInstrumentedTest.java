@@ -1,4 +1,4 @@
-package com.example.woh.cogsci;
+package com.woh.cogsci;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.woh.cogsci", appContext.getPackageName());
+        assertEquals("com.woh.cogsci", appContext.getPackageName());
     }
 }
