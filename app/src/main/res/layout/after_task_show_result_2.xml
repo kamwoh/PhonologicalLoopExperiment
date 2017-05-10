@@ -180,6 +180,7 @@
             android:layout_below="@+id/resultRS6"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
+            android:background="@drawable/button_border"
             android:text="Next"
             android:textColor="@color/blue" />
     </RelativeLayout>

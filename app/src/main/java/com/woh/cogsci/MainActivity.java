@@ -104,13 +104,7 @@ public class MainActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentView(R.layout.wait_experiment_3);
-                Button experimentButton1 = (Button) findViewById(R.id.experimentButton1);
-                Button experimentButton2 = (Button) findViewById(R.id.experimentButton2);
-                Button experimentButton3 = (Button) findViewById(R.id.experimentButton3);
-                experimentButton1.setOnClickListener(taskButtonOnClickListener);
-                experimentButton2.setOnClickListener(taskButtonOnClickListener);
-                experimentButton3.setOnClickListener(taskButtonOnClickListener);
+                setupExperimentPage();
             }
         });
 
@@ -127,6 +121,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setupShowAllResult();
+            }
+        });
+    }
+
+    public void setupExperimentPage(){
+        setContentView(R.layout.wait_experiment_3);
+        Button experimentButton1 = (Button) findViewById(R.id.experimentButton1);
+        Button experimentButton2 = (Button) findViewById(R.id.experimentButton2);
+        Button experimentButton3 = (Button) findViewById(R.id.experimentButton3);
+        experimentButton1.setOnClickListener(taskButtonOnClickListener);
+        experimentButton2.setOnClickListener(taskButtonOnClickListener);
+        experimentButton3.setOnClickListener(taskButtonOnClickListener);
+        Button experimentBack = (Button) findViewById(R.id.experimentBack);
+        experimentBack.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                setupLanding();
             }
         });
     }
@@ -307,8 +318,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.after_task_show_result_2);
 
         //Things in the result layout
-//        ListView resultGivenWords = (ListView) findViewById(R.id.result_givenWords);
-//        ListView resultAnswer = (ListView) findViewById(R.id.result_answer);
         Button resultNextButton = (Button) findViewById(R.id.resultNextButton);
         TextView resultTask = (TextView) findViewById(R.id.resultTaskX);
         ArrayList<TextView> rs = new ArrayList<>();
@@ -334,7 +343,10 @@ public class MainActivity extends AppCompatActivity {
             rs.get(i).setText(wordList.get(i));
             if(userAns.size()>i){
                 ys.get(i).setText(userAns.get(i));
-                if(!(userAns.get(i).trim()).equals((wordList.get(i)).trim())) ys.get(i).setTextColor(Color.RED);
+                if((userAns.get(i).trim()).compareToIgnoreCase(wordList.get(i).trim())!=0){
+                    ys.get(i).setBackground(getResources().getDrawable(R.drawable.rounded_rect));
+                    ys.get(i).setTextColor(Color.WHITE);
+                }
             }else{
                 ys.get(i).setText("");
             }
@@ -369,7 +381,7 @@ public class MainActivity extends AppCompatActivity {
         funFactOKButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setupLanding();
+                setupExperimentPage();
             }
         });
     }
