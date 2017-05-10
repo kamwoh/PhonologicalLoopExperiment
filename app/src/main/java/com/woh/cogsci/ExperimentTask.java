@@ -183,7 +183,7 @@ public class ExperimentTask {
         switch(experimentID) {
             case 1:
                 instruction += "There will be two tasks in this experiment, you must complete both tasks before proceeding to the next experiment.\n";
-                instruction += "On each task, a sequence of letters will appear, the list is presented for five seconds.\n";
+                instruction += "On each task, a sequence of letters will appear, each letter is presented for one second.\n";
                 instruction += "After that, you will need to enter the letters as in the sequence it was presented to you.\n\n";
                 instruction += "For example:\n";
                 instruction += "If first letter in the sequence was \'F\'\n";
