@@ -88,9 +88,12 @@ public class ExperimentTask {
         correct1 = 0;
         correct2 = 0;
         for (int i = 0; i < 6; i++) {
-            if (task1.get(i).equalsIgnoreCase(task1_a.get(i))) correct1++;
-            if (task2.get(i).equalsIgnoreCase(task2_a.get(i))) correct2++;
+            Log.i(task1.get(i), task1_a.get(i));
+            Log.i(task2.get(i), task2_a.get(i));
+            if (task1.get(i).trim().equalsIgnoreCase(task1_a.get(i).trim())) correct1++;
+            if (task2.get(i).trim().equalsIgnoreCase(task2_a.get(i).trim())) correct2++;
         }
+        Log.i(""+correct1, ""+correct2);
     }
 
     public int getTotalWord() {
