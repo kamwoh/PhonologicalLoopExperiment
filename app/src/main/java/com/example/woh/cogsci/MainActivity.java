@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.provider.Settings.Secure;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -22,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Register
@@ -183,12 +185,35 @@ public class MainActivity extends AppCompatActivity {
         TextView taskLabel = (TextView) findViewById(R.id.taskLabel);
         taskLabel.setText("Task " + experimentTask.getTaskNo());
 
-        ArrayAdapter<String> wordListAdapter = new ArrayAdapter<>(this, R.layout.text_style1, experimentTask.getWordList());
-        ListView taskWordListView = (ListView) findViewById(R.id.taskWordListView);
-        taskWordListView.setAdapter(wordListAdapter);
+        final ArrayList<String> wordList = experimentTask.getWordList();
+        final Iterator<String> iterator = wordList.iterator();
+        final TextView timer = (TextView) findViewById(R.id.timerLabel);
+        final TextView wordDisplay = (TextView) findViewById(R.id.display_wordDisplay);
+        wordDisplay.setText("");
+        timer.setText(experimentTask.getTaskDuration()+"");
 
-        TaskTimer taskTimer = new TaskTimer(experimentTask.getTaskDuration(), this);
-        taskTimer.start();
+//        final ArrayAdapter<String> wordListAdapter = new ArrayAdapter<>(this, R.layout.text_style1, wordList);
+//        ListView taskWordListView = (ListView) findViewById(R.id.taskWordListView);
+//        taskWordListView.setAdapter(wordListAdapter);
+        Log.i("duration", experimentTask.getTaskDuration()+"");
+        new MyTimer(experimentTask.getTaskDuration(),  1000){
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                timer.setText(String.valueOf((millisUntilFinished/1000)));
+                String word = iterator.next();
+                TextView wordDisplay = (TextView) findViewById(R.id.display_wordDisplay);
+                wordDisplay.setText(word);
+            }
+
+            @Override
+            public void onFinish() {
+                setupTaskPromptInput();
+            }
+        }.start();
+
+//        TaskTimer taskTimer = new TaskTimer(experimentTask.getTaskDuration(), this);
+//        taskTimer.start();
     }
 
     /**
@@ -209,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setupAfterTaskShowResult();
-//                experimentTask.setTimeTaken((System.currentTimeMillis() - startTime) / 1000);
+                experimentTask.setTimeTaken((System.currentTimeMillis() - startTime) / 1000);
 //                if (experimentTask.getTaskNo() == 1) {
 //                    experimentTask.nextTask();
 //                    setupBeforeTaskInstruction(); //task 2
@@ -315,14 +340,11 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        }
 
-        final long startTime = System.currentTimeMillis();
-
         //On clicking "NEXT" button
         resultNextButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 if(experimentTask.getTaskNo()==1){
-                    experimentTask.setTimeTaken((System.currentTimeMillis() - startTime) / 1000);
                     if (experimentTask.getTaskNo() == 1) {
                         experimentTask.nextTask();
                         setupBeforeTaskInstruction(); //task 2

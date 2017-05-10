@@ -40,9 +40,9 @@ public class ExperimentTask {
     public String getExperimentName() {
         switch(experimentID) {
             case 1:
-                return "Experiment 1: Word Length Effect";
+                return "Experiment 1: Phonological Similarity Effect";
             case 2:
-                return "Experiment 2: Phonological Similarity Effect";
+                return "Experiment 2: Word Length Effect";
             default:
                 return "Experiment 3: Articulacy Suppression";
         }
@@ -57,7 +57,8 @@ public class ExperimentTask {
     }
 
     public int getTaskDuration() {
-        return taskDuration;
+        if(taskNo==1) return task1.size();
+        else return task2.size();
     }
 
     public ArrayList<String> getWordList() {
@@ -66,8 +67,8 @@ public class ExperimentTask {
     }
 
     public boolean isFulled() {
-        if(taskNo==1) return task1_a.size() == totalWord;
-        else return task2_a.size() == totalWord;
+        if(taskNo==1) return task1_a.size() == task1.size();
+        else return task2_a.size() == task2.size();
     }
 
     private void calculateResult() {
@@ -164,16 +165,16 @@ public class ExperimentTask {
         switch(experimentID) {
             case 1:
                 instruction += "There will be two tasks in this experiment, you must complete both tasks before proceeding to the next experiment.\n";
-                instruction += "On each task, a list of letters will appear, the list is presented for five seconds.\n";
-                instruction += "After that, you will need to enter the letters as in the list it was presented to you.\n\n";
+                instruction += "On each task, a sequence of letters will appear, the list is presented for five seconds.\n";
+                instruction += "After that, you will need to enter the letters as in the sequence it was presented to you.\n\n";
                 instruction += "For example:\n";
-                instruction += "If first letter in the list was \'F\'\n";
+                instruction += "If first letter in the sequence was \'F\'\n";
                 instruction += "Then you need to enter the letter \'F\' in the answer space provided\n\n";
                 instruction += "There is no way to correct mistakes, so be careful!";
                 return instruction;
             case 2:
                 instruction += "This task contains two tasks, you must complete tasks. "+
-                        "On every task, there will be a list of words presented and you will be given time to read and memorize every word.\n" +
+                        "On every task, there will be a sequence of words presented and you will be given time to read and memorize every word.\n" +
                         "\n" +
                         "Once the time is up, you are required to enter the words according to the sequence that it was presented.\n" +
                         "\n" +
@@ -181,11 +182,11 @@ public class ExperimentTask {
                 return instruction;
             default:
                 if(taskNo==1) {
-                    instruction += "You are about to begin Task 1 of Experiment 3. In this trial, read the words presented out loud.\n" +
+                    instruction += "You are about to begin Task 1 of Experiment 3. In this task, read the words presented out loud.\n" +
                             "Then, write the words in the correct sequence.\n\n" +
                             "The words are random, so make sure you are not in a public place to avoid looking like a weirdo.";
                 } else {
-                    instruction += "You are about to begin Task 2 of Experiment 3. In this trial, " +
+                    instruction += "You are about to begin Task 2 of Experiment 3. In this task, " +
                             "you must add the word \"The\" before every word. [For " +
                             "example : the buffalo, the house ]\n" +
                             "\n" +
