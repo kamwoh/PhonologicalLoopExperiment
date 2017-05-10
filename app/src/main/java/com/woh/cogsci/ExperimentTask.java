@@ -137,7 +137,7 @@ public class ExperimentTask {
             BufferedReader br = new BufferedReader(new InputStreamReader(path));
             if(experimentID==1) {
                 String line = br.readLine();
-                int toRead = r.nextInt(Integer.parseInt(br.readLine()))+1;
+                int toRead = r.nextInt(Integer.parseInt(line))+1;
                 for (int i = 0; i < toRead - 1; i++) {line = br.readLine();line = br.readLine();}//skip pass the unwanted list
                 for (String s : br.readLine().split(", ")) task1.add(s);
                 for (String s : br.readLine().split(", ")) task2.add(s);

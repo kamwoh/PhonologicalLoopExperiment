@@ -334,7 +334,7 @@ public class MainActivity extends AppCompatActivity {
             rs.get(i).setText(wordList.get(i));
             if(userAns.size()>i){
                 ys.get(i).setText(userAns.get(i));
-                if(!userAns.get(i).equals(wordList.get(i))) ys.get(i).setTextColor(Color.RED);
+                if(!(userAns.get(i).trim()).equals((wordList.get(i)).trim())) ys.get(i).setTextColor(Color.RED);
             }else{
                 ys.get(i).setText("");
             }
