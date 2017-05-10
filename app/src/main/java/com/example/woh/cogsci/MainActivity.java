@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.task_prompt_input_2);
         //prompt input
         Button taskDoneButton = (Button) findViewById(R.id.taskDoneButton);
-        Button taskAddItemButton = (Button) findViewById(R.id.taskAddItemButton);
+//        Button taskAddItemButton = (Button) findViewById(R.id.taskAddItemButton);
         final ListView itemList = (ListView) findViewById(R.id.itemList);
         final ArrayAdapter<String> itemListAdapter = new ArrayAdapter<>(this, R.layout.text_style1, experimentTask.getUserInputList());
         itemList.setAdapter(itemListAdapter);
@@ -242,34 +242,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        taskAddItemButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (experimentTask.isFulled()) {
-                    Toast.makeText(MainActivity.this, "Maximum only " + experimentTask.getTotalWord() + " word", Toast.LENGTH_SHORT).show();
-                } else {
-                    AlertDialog.Builder popUp = new AlertDialog.Builder(MainActivity.this);
-                    final EditText et = new EditText(MainActivity.this);
-                    popUp.setView(et);
-                    popUp.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            experimentTask.saveUserInput(et.getText().toString());
-                            itemListAdapter.notifyDataSetChanged();
-                        }
-                    });
-                    AlertDialog ad = popUp.create();
-                    ad.setTitle("Enter the word: ");
-                    ad.show();
-                }
-            }
-        });
+//        taskAddItemButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (experimentTask.isFulled()) {
+//                    Toast.makeText(MainActivity.this, "Maximum only " + experimentTask.getTotalWord() + " word", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    AlertDialog.Builder popUp = new AlertDialog.Builder(MainActivity.this);
+//                    final EditText et = new EditText(MainActivity.this);
+//                    popUp.setView(et);
+//                    popUp.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int id) {
+//                            experimentTask.update(et.getText().toString());
+//                            itemListAdapter.notifyDataSetChanged();
+//                        }
+//                    });
+//                    AlertDialog ad = popUp.create();
+//                    ad.setTitle("Enter the word: ");
+//                    ad.show();
+//                }
+//            }
+//        });
 
         itemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 AlertDialog.Builder popUp = new AlertDialog.Builder(MainActivity.this);
                 final EditText et = new EditText(MainActivity.this);
-                et.setText(((TextView) view).getText());
+                if(!((TextView)view).getText().equals((position+1)+"."))
+                    et.setText(((TextView) view).getText());
                 popUp.setView(et);
                 popUp.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

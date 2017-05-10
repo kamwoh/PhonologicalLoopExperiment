@@ -1,6 +1,7 @@
 package com.example.woh.cogsci;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.firebase.database.DatabaseReference;
 
@@ -29,14 +30,17 @@ public class Result {
             public void run() {
 
                 try {
-                    File file = new File("result_"+experimentNumber+".txt");
-                    if(!file.exists()) file.createNewFile();
-                    FileOutputStream fos = mainActivity.openFileOutput("result_"+experimentNumber+".txt", Context.MODE_PRIVATE);
-                    String write = "task1,"+correct[0]+","+timeTakenToSubmit[0]+"\n";
-                    write += "task2,"+correct[1]+","+timeTakenToSubmit[1]+"\n";
+                    String fileName = mainActivity.getFilesDir().getAbsolutePath()+ "/result" + experimentNumber + ".txt";
+                    File file = new File(fileName);
+                    FileOutputStream fos = mainActivity.openFileOutput("result" + experimentNumber + ".txt", mainActivity.MODE_PRIVATE);
+                    String write = "task1," + correct[0] + "," + timeTakenToSubmit[0] + "\n";
+                    write += "task2," + correct[1] + "," + timeTakenToSubmit[1] + "\n";
+                    Log.i("write", write);
                     fos.write(write.getBytes());
                     fos.close();
-                }catch(Exception e) {}
+                } catch (Exception e) {
+                    Log.i("write", e.getMessage());
+                }
 
                 DatabaseReference newResult = userDatabase.child("result").child(experimentTask.getExperimentID()).push();
                 DatabaseReference task1 = newResult.child("task 1");
@@ -59,18 +63,16 @@ public class Result {
         result[2][0] = "0/6";
         result[2][1] = "0/6";
         FileInputStream fis;
-        try {
-
-            for(int i=1;i<=3;i++) {
-                fis = mainActivity.openFileInput("result_"+i+".txt");
+        for (int i = 1; i <= 3; i++) {
+            try {
+                fis = mainActivity.openFileInput("result" + i + ".txt");
                 BufferedReader br = new BufferedReader(new InputStreamReader(fis));
                 String[] s1 = br.readLine().split(",");
                 String[] s2 = br.readLine().split(",");
-                result[i-1][0] = s1[0]+"/6";
-                result[i-1][1] = s2[0]+"/6";
+                result[i - 1][0] = s1[1] + "/6";
+                result[i - 1][1] = s2[1] + "/6";
+            } catch (Exception e) {
             }
-
-        } catch (Exception e) {
         }
 
         return result;

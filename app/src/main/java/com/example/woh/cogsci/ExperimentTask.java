@@ -34,6 +34,19 @@ public class ExperimentTask {
         experimentID = id;
         mcontext = context;
         taskNo = 1;
+        task1_a.add("1.");
+        task1_a.add("2.");
+        task1_a.add("3.");
+        task1_a.add("4.");
+        task1_a.add("5.");
+        task1_a.add("6.");
+
+        task2_a.add("1.");
+        task2_a.add("2.");
+        task2_a.add("3.");
+        task2_a.add("4.");
+        task2_a.add("5.");
+        task2_a.add("6.");
         run();
     }
 
@@ -99,11 +112,6 @@ public class ExperimentTask {
     public void updateUserInput(int index, String userInput) {
         if(taskNo==1) task1_a.set(index, userInput);
         else task2_a.set(index, userInput);
-    }
-
-    public void saveUserInput(String userInput) {
-        if(taskNo==1) task1_a.add(userInput);
-        else task2_a.add(userInput);
     }
 
     public void nextTask() {

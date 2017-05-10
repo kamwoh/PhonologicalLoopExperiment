@@ -13,20 +13,20 @@
         android:textColor="@color/blue"
         android:text="List the words you remember" />
 
-    <Button
-        android:id="@+id/taskAddItemButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="22dp"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp"
-        android:text="Add word"
-        android:textSize="16sp"
-        android:textColor="@color/blue"
-        android:background="@drawable/button_border"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/itemList"
-        android:layout_alignEnd="@+id/itemList" />
+    <!--<Button-->
+        <!--android:id="@+id/taskAddItemButton"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="22dp"-->
+        <!--android:paddingLeft="2dp"-->
+        <!--android:paddingRight="2dp"-->
+        <!--android:text="Add word"-->
+        <!--android:textSize="16sp"-->
+        <!--android:textColor="@color/blue"-->
+        <!--android:background="@drawable/button_border"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignRight="@+id/itemList"-->
+        <!--android:layout_alignEnd="@+id/itemList" />-->
 
     <ListView
         android:textColor="@color/blue"
@@ -46,10 +46,10 @@
         android:id="@+id/taskDoneButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/taskAddItemButton"
-        android:layout_alignLeft="@+id/itemList"
-        android:layout_alignStart="@+id/itemList"
         android:background="@drawable/button_border"
         android:textColor="@color/blue"
-        android:text="Done" />
+        android:text="Done"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/itemList"
+        android:layout_marginBottom="38dp" />
 </RelativeLayout>
