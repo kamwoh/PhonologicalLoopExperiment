@@ -135,16 +135,22 @@ public class ExperimentTask {
         try{
             InputStream path = am.open(file);
             BufferedReader br = new BufferedReader(new InputStreamReader(path));
-            String line = br.readLine();
-            int toRead = r.nextInt(Integer.parseInt(line))+1;
-
-            //skip pass the unwanted list
-            for(int i=0;i<toRead-1;i++){line = br.readLine();line = br.readLine();}
-            //
-
-            for(String s:br.readLine().split(", ")) task1.add(s);
-            for(String s:br.readLine().split(", ")){
-                task2.add(s);
+            if(experimentID==1) {
+                String line = br.readLine();
+                int toRead = r.nextInt(Integer.parseInt(br.readLine()))+1;
+                for (int i = 0; i < toRead - 1; i++) {line = br.readLine();line = br.readLine();}//skip pass the unwanted list
+                for (String s : br.readLine().split(", ")) task1.add(s);
+                for (String s : br.readLine().split(", ")) task2.add(s);
+            }else if(experimentID==2){
+                ArrayList<String> t1 = new ArrayList<>();    for(String s:br.readLine().split(", ")) t1.add(s);
+                ArrayList<String> t2 = new ArrayList<>();    for(String s:br.readLine().split(", ")) t2.add(s);
+                for(int i=0;i<6;i++){task1.add(t1.remove(r.nextInt(t1.size())));}
+                for(int i=0;i<6;i++){task2.add(t2.remove(r.nextInt(t2.size())));}
+            }else{
+                ArrayList<String> t1 = new ArrayList<>();
+                for(String s:br.readLine().split(", ")) t1.add(s);
+                for(int i=0;i<6;i++){task1.add(t1.remove(r.nextInt(t1.size())));}
+                for(int i=0;i<6;i++){task2.add(t1.remove(r.nextInt(t1.size())));}
             }
             br.close();
         }catch(FileNotFoundException e){
