@@ -5,10 +5,10 @@ android {
     buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.woh.cogsci"
-        minSdkVersion 22
-        targetSdkVersion 22
-        versionCode 3
-        versionName '1.2'
+        minSdkVersion 15
+        targetSdkVersion 15
+        versionCode 6
+        versionName '1.5'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -46,6 +47,7 @@ import java.util.Iterator;
 public class MainActivity extends AppCompatActivity {
 
     public final Handler handler = new Handler();
+    private int exitCount = 0;
     private int experimentID;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference userDatabase;
@@ -100,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void setupLanding() {
         setContentView(R.layout.wait_start_2);
+        exitCount = 0;
         Button startButton = (Button) findViewById(R.id.startButton);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,13 +110,25 @@ public class MainActivity extends AppCompatActivity {
                 setupExperimentPage();
             }
         });
-
-        Button exitButton = (Button) MainActivity.this.findViewById(R.id.exitButton);
+        final Button exitButton = (Button) MainActivity.this.findViewById(R.id.exitButton);
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.exit(0);
+//                System.exit(0);
+                if(exitCount==0) {
+                    Toast.makeText(MainActivity.this, "Help us plss :(", Toast.LENGTH_SHORT).show();
+                    exitCount++;
+                } else if(exitCount==1) {
+                    Toast.makeText(MainActivity.this, "We need your help :(", Toast.LENGTH_SHORT).show();
+                    exitCount++;
+                } else if(exitCount==2) {
+                    Toast.makeText(MainActivity.this, "Nooooo", Toast.LENGTH_SHORT).show();
+                    exitCount++;
+                } else {
+                    System.exit(0);
+                }
             }
+
         });
 
         Button resultButton = (Button) MainActivity.this.findViewById(R.id.resultButton);

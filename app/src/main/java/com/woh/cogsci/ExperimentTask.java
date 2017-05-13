@@ -194,34 +194,30 @@ public class ExperimentTask {
         String instruction = "";
         switch (experimentID) {
             case 1:
-                instruction += "There will be two tasks in this experiment, you must complete both tasks before proceeding to the next experiment.\n";
-                instruction += "On each task, a sequence of letters will appear, each letter is presented for one second.\n";
-                instruction += "After that, you will need to enter the letters as in the sequence it was presented to you.\n\n";
-                instruction += "For example:\n";
-                instruction += "If first letter in the sequence was \'F\'\n";
-                instruction += "Then you need to enter the letter \'F\' in the answer space provided\n\n";
-                instruction += "There is no way to correct mistakes, so be careful!";
+                instruction += "1. A sequence of letters will appear, each letter is presented for one second.\n";
+                instruction += "2. Memorise the letters.\n";
+                instruction += "3. Enter the letters in the correct sequence.\n\n";
+                instruction += "Focus is key my friend, good luck!";
                 return instruction;
             case 2:
-                instruction += "This task contains two tasks, you must complete tasks. " +
-                        "On every task, there will be a sequence of words presented and you will be given time to read and memorize every word.\n" +
-                        "\n" +
-                        "Once the time is up, you are required to enter the words according to the sequence that it was presented.\n" +
-                        "\n" +
+                instruction += "1. A sequence of words will appear, each word is presented for two seconds.\n" +
+                        "2. Memorise the words.\n" +
+                        "3. Enter the words in the correct sequence.\n\n" +
                         "Focus is key my friend, good luck!";
                 return instruction;
             default:
                 if (taskNo == 1) {
-                    instruction += "You are about to begin Task 1 of Experiment 3. In this task, read the words presented out loud.\n" +
-                            "Then, write the words in the correct sequence.\n\n" +
+                    instruction += "1. A sequence of words will appear, each word is presented for three seconds.\n" +
+                            "2. Memorise and read the words presented out loud.\n" +
+                            "3. Enter the words in the correct sequence.\n\n" +
                             "The words are random, so make sure you are not in a public place to avoid looking like a weirdo.";
                 } else {
-                    instruction += "You are about to begin Task 2 of Experiment 3. In this task, " +
-                            "you must add the word \"The\" before every word. [For " +
-                            "example : the buffalo, the house ]\n" +
-                            "\n" +
-                            "Write the words only in the correct sequence, without \n" +
-                            "the word \"The\". [For example: buffalo, house]";
+                    instruction += "1. A sequence of words will appear, each word is presented for three seconds.\n" +
+                            "2. Memorise and read the words and add the word presented out loud.\n" +
+                            "3. You must add the word \"The\" before every word when you read it.\n" +
+                            "4. Enter the original words without \"The\" in the correct sequence.\n" +
+                            "5. Read the word like: [The buffalo, the house]\n" +
+                            "6. Enter the word like: [buffalo, house]";
                 }
                 return instruction;
         }
